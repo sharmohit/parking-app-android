@@ -43,9 +43,9 @@ User must be allowed to edit the parking information except datetime of parking.
   - [ ] Implement sign-up
   - [ ] Add navigation to sign-in and home screens
 
-- [ ] 3. Configure Firestore Console and Firebase in Project @MohitSharma(101342267)
-  - [ ] Create firebase app and configure firestore in console
-  - [ ] Add GoogleService-Info.plist in Android project
-  - [ ] Add firebase gradle dependencies
-  - [ ] Test firestore with test data
+- [x] 3. Configure Firestore Console and Firebase in Project @MohitSharma(101342267)
+  - [x] Create firebase app and configure firestore in console
+  - [x] Add GoogleService-Info.plist in Android project
+  - [x] Add firebase gradle dependencies
+  - [x] Test firestore with test data
 ##
