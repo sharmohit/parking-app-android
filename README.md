@@ -32,9 +32,9 @@ User must be allowed to edit the parking information except datetime of parking.
 &nbsp;
 ## Task Lists
 - [ ] 1. Create Sign-In Screen @MohitSharma(101342267)
-  - [ ] Design sign-in layout
-  - [ ] Implement sign-in
-  - [ ] Validate user
+  - [x] Design sign-in layout
+  - [x] Implement sign-in with remember me
+  - [x] Validate user
   - [ ] Add navigation to sign-up and home screens
 
 - [ ] 2. Create Sign-Up Screen @JavteshSinghBhullar(101348129)
@@ -48,4 +48,10 @@ User must be allowed to edit the parking information except datetime of parking.
   - [x] Add GoogleService-Info.plist in Android project
   - [x] Add firebase gradle dependencies
   - [x] Test firestore with test data
+
+- [ ] 4. Create Update Profile Screen @JavteshSinghBhullar(101348129)
+  - [ ] Design update profile screen
+  - [ ] Fetch user input
+  - [ ] Validate user input
+  - [ ] Update user profile with firestore
 ##
