@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">ParkingApp</string>
+
+    <string name="preference_file_key">com.gbc.parkingapp.config</string>
+    <string name="email_key">email_key</string>
+    <string name="password_key">password_key</string>
 </resources>
