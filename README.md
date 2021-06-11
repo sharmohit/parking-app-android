@@ -58,8 +58,8 @@ User must be allowed to edit the parking information except datetime of parking.
 - [ ] 5. Create Home and Parking View Screen UI @MohitSharma(101342267)
   - [ ] Design home and parking view screen
   - [ ] Create tabbed home screen
-  - [ ] Implement list view for view parking screen
-  - [ ] Fetch user parking from firestore
+  - [x] Implement recycler view for view parking screen
+  - [x] Fetch user parking from firestore
   - [ ] Link parkings with parking detail screen
   - [ ] Add navigation to view/add parking and profile screen
 ##
