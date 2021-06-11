@@ -102,7 +102,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void showHomeScreen() {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, HomeActivity.class);
         this.startActivity(intent);
         this.finish();
     }
