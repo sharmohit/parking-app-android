@@ -37,7 +37,7 @@ public class LoginActivity extends AppCompatActivity {
         this.binding = ActivityLoginBinding.inflate(this.getLayoutInflater());
         setContentView(this.binding.getRoot());
 
-        this.userViewModel = UserViewModel.getInstance(this.getApplication());
+        this.userViewModel = UserViewModel.getInstance();
 
         this.binding.btnLogin.setOnClickListener(this::loginClicked);
 
@@ -102,7 +102,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void showHomeScreen() {
-        Intent intent = new Intent(this, HomeActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
         this.startActivity(intent);
         this.finish();
     }

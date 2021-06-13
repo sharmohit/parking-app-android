@@ -1,27 +1,26 @@
-// Group: Project Groups 12
-// Name: Mohit Sharma
-// Student ID: 101342267
-// Group Member: Javtesh Singh Bhullar
-// Member ID: 101348129
+/*
+Group: Project Groups 12
+Name: Mohit Sharma
+Student ID: 101342267
+Group Member: Javtesh Singh Bhullar
+Member ID: 101348129
+ */
 
 package com.gbc.parkingapp;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.View;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.gbc.parkingapp.databinding.RowLayoutBinding;
+import com.gbc.parkingapp.databinding.ParkingRowLayoutBinding;
 import com.gbc.parkingapp.model.Parking;
 
-import java.util.Date;
-
-public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-    private RowLayoutBinding binding;
+public class ParkingViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    private ParkingRowLayoutBinding binding;
     private Context context;
 
-    public ViewHolder(RowLayoutBinding binding) {
+    public ParkingViewHolder(ParkingRowLayoutBinding binding) {
         super(binding.getRoot());
         this.binding = binding;
         this.context = binding.getRoot().getContext();
@@ -38,8 +37,7 @@ public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickL
     public void onClick(View v) {
         int position = getAdapterPosition();
         if(position != RecyclerView.NO_POSITION) {
-            Intent i = new Intent(this.context, TestActivity.class);
-            this.context.startActivity(i);
+            //TODO Navigate to parking details
         }
     }
 }

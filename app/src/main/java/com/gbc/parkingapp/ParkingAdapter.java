@@ -1,8 +1,10 @@
-// Group: Project Groups 12
-// Name: Mohit Sharma
-// Student ID: 101342267
-// Group Member: Javtesh Singh Bhullar
-// Member ID: 101348129
+/*
+Group: Project Groups 12
+Name: Mohit Sharma
+Student ID: 101342267
+Group Member: Javtesh Singh Bhullar
+Member ID: 101348129
+ */
 
 package com.gbc.parkingapp;
 
@@ -12,12 +14,12 @@ import android.view.ViewGroup;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.gbc.parkingapp.databinding.RowLayoutBinding;
+import com.gbc.parkingapp.databinding.ParkingRowLayoutBinding;
 import com.gbc.parkingapp.model.Parking;
 
 import java.util.ArrayList;
 
-public class ParkingAdapter extends RecyclerView.Adapter<ViewHolder> {
+public class ParkingAdapter extends RecyclerView.Adapter<ParkingViewHolder> {
     private ArrayList<Parking> parkings;
     private Context context;
 
@@ -27,17 +29,17 @@ public class ParkingAdapter extends RecyclerView.Adapter<ViewHolder> {
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        RowLayoutBinding binding =
-                RowLayoutBinding.inflate(LayoutInflater.from(this.context), viewGroup,
+    public ParkingViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+        ParkingRowLayoutBinding binding =
+                ParkingRowLayoutBinding.inflate(LayoutInflater.from(this.context), viewGroup,
                         false);
-        return new ViewHolder(binding);
+        return new ParkingViewHolder(binding);
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, final int position) {
+    public void onBindViewHolder(ParkingViewHolder parkingViewHolder, final int position) {
         Parking parking = this.parkings.get(position);
-        viewHolder.bind(this.context, parking);
+        parkingViewHolder.bind(this.context, parking);
     }
 
     @Override
