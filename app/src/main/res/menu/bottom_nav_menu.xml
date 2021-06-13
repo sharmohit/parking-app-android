@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/home_fragment"
+        android:title="Home"
+        android:icon="@drawable/ic_launcher_foreground"
+        android:menuCategory="secondary"/>
+    <item android:id="@+id/add_parking_fragment"
+        android:title="Add Parking"
+        android:icon="@drawable/ic_launcher_foreground"
+        android:menuCategory="secondary"/>
+    <item android:id="@+id/profile_fragment"
+        android:title="Profile"
+        android:icon="@drawable/ic_launcher_foreground"
+        android:menuCategory="secondary"/>
+</menu>

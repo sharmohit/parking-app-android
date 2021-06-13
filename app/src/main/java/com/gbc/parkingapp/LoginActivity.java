@@ -37,7 +37,7 @@ public class LoginActivity extends AppCompatActivity {
         this.binding = ActivityLoginBinding.inflate(this.getLayoutInflater());
         setContentView(this.binding.getRoot());
 
-        this.userViewModel = UserViewModel.getInstance(this.getApplication());
+        this.userViewModel = UserViewModel.getInstance();
 
         this.binding.btnLogin.setOnClickListener(this::loginClicked);
 

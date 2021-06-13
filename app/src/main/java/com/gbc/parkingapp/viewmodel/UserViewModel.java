@@ -10,25 +10,26 @@ import android.app.Application;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 
 import com.gbc.parkingapp.model.User;
 import com.gbc.parkingapp.repository.UserRepository;
 
-public class UserViewModel extends AndroidViewModel {
+public class UserViewModel extends ViewModel {
     private static UserViewModel instance;
     private final UserRepository userRepository = new UserRepository();
     public MutableLiveData<User> userLiveData = new MutableLiveData<>();
 
-    public static UserViewModel getInstance(Application application) {
+    public static UserViewModel getInstance() {
         if (instance == null) {
-            instance = new UserViewModel(application);
+            instance = new UserViewModel();
         }
 
         return instance;
     }
 
-    public UserViewModel(Application application) {
-        super(application);
+    public UserViewModel() {
+        super();
     }
 
     public void getUserByEmail(String email) {
