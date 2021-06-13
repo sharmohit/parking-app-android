@@ -8,9 +8,6 @@ Member ID: 101348129
 
 package com.gbc.parkingapp.viewmodel;
 
-import android.app.Application;
-
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -39,6 +36,10 @@ public class ParkingViewModel extends ViewModel {
 
     public void getUserParkings(String userId) {
         this.parkingRepository.getUserParkings(userId, this.parkingListLiveData);
+    }
+
+    public void addUserParking(String userId, Parking parking){
+        this.parkingRepository.addUserParking(userId, parking);
     }
 
     public MutableLiveData<List<Parking>> getParkingListLiveData() {

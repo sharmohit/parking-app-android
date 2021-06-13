@@ -49,6 +49,8 @@ public class HomeFragment extends Fragment {
                 adapter.notifyDataSetChanged();
             }
         });
+        this.parkingViewModel.getUserParkings(UserViewModel.getInstance()
+                .userLiveData.getValue().getId());
     }
 
     @Override
@@ -70,8 +72,6 @@ public class HomeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        this.parkingViewModel.getUserParkings(UserViewModel.getInstance()
-                .userLiveData.getValue().getId());
     }
 
     @Override

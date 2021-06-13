@@ -9,9 +9,11 @@ Member ID: 101348129
 package com.gbc.parkingapp.model;
 
 import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.Exclude;
 import com.google.firebase.firestore.GeoPoint;
 
 public class Parking {
+    @Exclude
     private String id;
     private String building_code;
     private String car_plate_number;

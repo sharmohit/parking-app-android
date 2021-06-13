@@ -15,9 +15,13 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.gbc.parkingapp.model.Parking;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
@@ -27,6 +31,7 @@ public class ParkingRepository {
     private final String TAG = this.getClass().getCanonicalName();
     private final String COLLECTION_USER = "users";
     private final String COLLECTION_PARKING = "parkings";
+    private final String QUERY_PARKING_BY = "date_time";
     private FirebaseFirestore db;
 
     public ParkingRepository() {
@@ -38,6 +43,7 @@ public class ParkingRepository {
             this.db.collection(COLLECTION_USER)
                     .document(userId)
                     .collection(COLLECTION_PARKING)
+                    .orderBy(QUERY_PARKING_BY, Query.Direction.DESCENDING)
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
@@ -75,6 +81,29 @@ public class ParkingRepository {
 
         } catch (Exception e) {
             Log.e(TAG, "getUserParkings: " + e.getLocalizedMessage());
+        }
+    }
+
+    public void addUserParking(String userId, Parking parking) {
+        try {
+            this.db.collection(COLLECTION_USER)
+                    .document(userId)
+                    .collection(COLLECTION_PARKING)
+                    .add(parking)
+                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        @Override
+                        public void onSuccess(DocumentReference documentReference) {
+                            Log.d(TAG, "onSuccess: Parking added successfully");
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.e(TAG, "onFailure: Unable to add parking " + e.getLocalizedMessage());
+                        }
+                    });
+        } catch (Exception e) {
+            Log.e(TAG, "addUserParking: " + e.getLocalizedMessage());
         }
     }
 }
