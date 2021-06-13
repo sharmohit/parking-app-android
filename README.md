@@ -31,11 +31,11 @@ User must be allowed to edit the parking information except datetime of parking.
 ##
 &nbsp;
 ## Task Lists
-- [ ] 1. Create Sign-In Screen @MohitSharma(101342267)
+- [x] 1. Create Sign-In Screen @MohitSharma(101342267)
   - [x] Design sign-in layout
   - [x] Implement sign-in with remember me
   - [x] Validate user
-  - [ ] Add navigation to sign-up and home screens
+  - [x] Add navigation to sign-up and home screens
 
 - [ ] 2. Create Sign-Up Screen @JavteshSinghBhullar(101348129)
   - [ ] Design sign-up layout
@@ -56,10 +56,21 @@ User must be allowed to edit the parking information except datetime of parking.
   - [ ] Update user profile with firestore
 
 - [ ] 5. Create Home and Parking View Screen UI @MohitSharma(101342267)
-  - [ ] Design home and parking view screen
-  - [ ] Create tabbed home screen
+  - [x] Design home and parking view screen
+  - [x] Implement Jetpack Navigation with fragments
+  - [x] Create home screen with bottom navigation
   - [x] Implement recycler view for view parking screen
   - [x] Fetch user parking from firestore
   - [ ] Link parkings with parking detail screen
-  - [ ] Add navigation to view/add parking and profile screen
+ 
+- [ ] 6. Create Parking Detail View Screen @JavteshSinghBhullar(101348129)
+  - [ ] Design parking detail view screen
+  - [ ] Fetch parking detail from firestore
+  - [ ] Display parking detail
+  
+- [ ] 7. Create Add Parking Screen UI @MohitSharma(101342267)
+  - [ ] Design add parking screen
+  - [ ] Fetch and convert user location
+  - [ ] Validate user input
+  - [ ] Add parking to firestore
 ##
