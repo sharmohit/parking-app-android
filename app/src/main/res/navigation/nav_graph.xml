@@ -10,4 +10,9 @@
         android:name="com.gbc.parkingapp.ui.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/add_parking_fragment"
+        android:name="com.gbc.parkingapp.ui.AddParkingFragment"
+        android:label="fragment_add_parking"
+        tools:layout="@layout/fragment_add_parking" />
 </navigation>

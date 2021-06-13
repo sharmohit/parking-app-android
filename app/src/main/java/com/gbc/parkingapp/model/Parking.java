@@ -9,6 +9,7 @@ Member ID: 101348129
 package com.gbc.parkingapp.model;
 
 import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.Exclude;
 import com.google.firebase.firestore.GeoPoint;
 
 public class Parking {
@@ -38,6 +39,7 @@ public class Parking {
                 '}';
     }
 
+    @Exclude
     public String getId() {
         return id;
     }

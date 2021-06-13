@@ -1,10 +1,14 @@
-// Group: Project Groups 12
-// Name: Mohit Sharma
-// Student ID: 101342267
-// Group Member: Javtesh Singh Bhullar
-// Member ID: 101348129
+/*
+Group: Project Groups 12
+Name: Mohit Sharma
+Student ID: 101342267
+Group Member: Javtesh Singh Bhullar
+Member ID: 101348129
+ */
 
 package com.gbc.parkingapp.model;
+
+import com.google.firebase.firestore.Exclude;
 
 public class User {
     private String id;
@@ -35,6 +39,7 @@ public class User {
                 '}';
     }
 
+    @Exclude
     public String getId() {
         return id;
     }
