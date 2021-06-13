@@ -13,7 +13,6 @@ import com.google.firebase.firestore.Exclude;
 import com.google.firebase.firestore.GeoPoint;
 
 public class Parking {
-    @Exclude
     private String id;
     private String building_code;
     private String car_plate_number;
@@ -40,6 +39,7 @@ public class Parking {
                 '}';
     }
 
+    @Exclude
     public String getId() {
         return id;
     }

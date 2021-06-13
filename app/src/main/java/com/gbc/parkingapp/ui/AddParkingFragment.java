@@ -8,12 +8,17 @@ Member ID: 101348129
 
 package com.gbc.parkingapp.ui;
 
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -23,23 +28,34 @@ import android.widget.TextView;
 
 import com.gbc.parkingapp.R;
 import com.gbc.parkingapp.databinding.FragmentAddParkingBinding;
+import com.gbc.parkingapp.helper.LocationHelper;
 import com.gbc.parkingapp.model.Parking;
 import com.gbc.parkingapp.viewmodel.ParkingViewModel;
 import com.gbc.parkingapp.viewmodel.UserViewModel;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.GeoPoint;
 import com.google.type.Date;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.sql.Time;
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 public class AddParkingFragment extends Fragment implements View.OnFocusChangeListener, ChipGroup.OnCheckedChangeListener {
+    private final String TAG = this.getClass().getCanonicalName();
     private FragmentAddParkingBinding binding;
     private UserViewModel userViewModel;
     private ParkingViewModel parkingViewModel;
+    private LocationHelper locationHelper;
+    private Location lastLocation;
+    private LocationCallback locationCallback;
     private int parkingHours;
 
     @Override
@@ -47,6 +63,7 @@ public class AddParkingFragment extends Fragment implements View.OnFocusChangeLi
         super.onCreate(savedInstanceState);
         this.userViewModel = UserViewModel.getInstance();
         this.parkingViewModel = ParkingViewModel.getInstance();
+        this.locationHelper = LocationHelper.getInstance();
         this.parkingHours = -1;
     }
 
@@ -67,7 +84,6 @@ public class AddParkingFragment extends Fragment implements View.OnFocusChangeLi
             public void onClick(View v) {
                 if (validateInput()) {
                     addParking();
-                    Snackbar.make(v, "Parking added successfully.", Snackbar.LENGTH_SHORT).show();
                 }
             }
         });
@@ -77,6 +93,32 @@ public class AddParkingFragment extends Fragment implements View.OnFocusChangeLi
         this.binding.editSuitNumber.setOnFocusChangeListener(this::onFocusChange);
         this.binding.editAddress.setOnFocusChangeListener(this::onFocusChange);
         this.binding.chipGroupHours.setOnCheckedChangeListener(this::onCheckedChanged);
+        this.binding.labelAddress.setEndIconOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                locationHelper.checkPermissions(getContext());
+
+                if (locationHelper.isLocationPermissionGranted) {
+                    Log.d(TAG, "onCreate: Location Permission Granted");
+                    initiateLocationListener();
+                    locationHelper.getLastLocation(getContext()).observe(getViewLifecycleOwner(), new Observer<Location>() {
+                        @Override
+                        public void onChanged(Location location) {
+                            lastLocation = location;
+                            String obtainedAddress = locationHelper.getAddress(getContext(), lastLocation);
+                            binding.editAddress.setText(obtainedAddress);
+                            Log.d(TAG, "onCreate: Last Location Obtained " + lastLocation.toString());
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        this.locationHelper.stopLocationUpdates(getContext(), this.locationCallback);
     }
 
     @Override
@@ -128,15 +170,37 @@ public class AddParkingFragment extends Fragment implements View.OnFocusChangeLi
     }
 
     private void addParking() {
-        Parking parking = new Parking();
-        parking.setBuilding_code(this.binding.editBuildingCode.getText().toString().trim());
-        parking.setParking_hours(this.parkingHours);
-        parking.setCar_plate_number(this.binding.editCarPlate.getText().toString().trim());
-        parking.setSuit_number(this.binding.editSuitNumber.getText().toString().trim());
-        parking.setStreet_address(this.binding.editAddress.getText().toString().trim());
-        parking.setDate_time(Timestamp.now());
-        this.parkingViewModel.addUserParking(this.userViewModel.userLiveData.getValue().getId(), parking);
-        this.clearAllInput();
+        Executor executor = Executors.newSingleThreadExecutor();
+        Handler handler = new Handler(Looper.getMainLooper());
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                // do background work here
+                LatLng latLng = locationHelper.getLocation(getContext(), binding.editAddress
+                        .getText().toString().trim());
+
+                handler.post(() -> {
+
+                    // do UI changes after background work here
+                    if (latLng == null) {
+                        Snackbar.make(getView(), "Unable to process address.", Snackbar.LENGTH_SHORT).show();
+                    } else {
+                        Parking parking = new Parking();
+                        parking.setBuilding_code(binding.editBuildingCode.getText().toString().trim());
+                        parking.setParking_hours(parkingHours);
+                        parking.setCar_plate_number(binding.editCarPlate.getText().toString().trim());
+                        parking.setSuit_number(binding.editSuitNumber.getText().toString().trim());
+                        parking.setStreet_address(binding.editAddress.getText().toString().trim());
+                        parking.setDate_time(Timestamp.now());
+                        parking.setCoordinate(
+                                new GeoPoint(latLng.latitude, latLng.longitude));
+                        parkingViewModel.addUserParking(userViewModel.userLiveData.getValue().getId(), parking);
+                        Snackbar.make(getView(), "Parking added successfully.", Snackbar.LENGTH_SHORT).show();
+                        clearAllInput();
+                    }
+                });
+            }
+        });
     }
 
     private Boolean validateInput() {
@@ -159,9 +223,9 @@ public class AddParkingFragment extends Fragment implements View.OnFocusChangeLi
             this.binding.labelAddress.setError("Address can't be empty");
             isValid = false;
         }
-        if(this.parkingHours < 0) {
+        if (this.parkingHours < 0) {
             this.binding.tvParkingHours.setError("");
-            isValid =false;
+            isValid = false;
         }
 
         return isValid;
@@ -174,5 +238,25 @@ public class AddParkingFragment extends Fragment implements View.OnFocusChangeLi
         this.binding.editSuitNumber.getText().clear();
         this.binding.editAddress.getText().clear();
         this.binding.chipGroupHours.clearCheck();
+    }
+
+    private void initiateLocationListener() {
+        this.locationCallback = new LocationCallback() {
+            @Override
+            public void onLocationResult(@NonNull LocationResult locationResult) {
+                if (locationResult == null) {
+                    return;
+                }
+
+                for (Location loc : locationResult.getLocations()) {
+                    lastLocation = loc;
+                    binding.editAddress.setText(locationHelper.getAddress(getContext(), loc));
+                    locationHelper.stopLocationUpdates(getContext(), locationCallback);
+                    Log.d(TAG, "onLocationResult: Location Update " + loc.toString());
+                }
+            }
+        };
+
+        this.locationHelper.requestLocationUpdates(getActivity().getBaseContext(), this.locationCallback);
     }
 }
