@@ -1,47 +1,58 @@
-// Group: Project Groups 12
-// Name: Mohit Sharma
-// Student ID: 101342267
-// Group Member: Javtesh Singh Bhullar
-// Member ID: 101348129
+/*
+Group: Project Groups 12
+Name: Mohit Sharma
+Student ID: 101342267
+Group Member: Javtesh Singh Bhullar
+Member ID: 101348129
+ */
 
-package com.gbc.parkingapp;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
+package com.gbc.parkingapp.ui;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
-import android.util.Patterns;
-import android.view.View;
-import android.widget.Toast;
 
-import com.gbc.parkingapp.databinding.ActivityLoginBinding;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
+
+import android.util.Patterns;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.gbc.parkingapp.MainActivity;
+import com.gbc.parkingapp.R;
+import com.gbc.parkingapp.databinding.FragmentLoginBinding;
 import com.gbc.parkingapp.model.User;
 import com.gbc.parkingapp.viewmodel.UserViewModel;
 import com.google.android.material.snackbar.Snackbar;
 
-public class LoginActivity extends AppCompatActivity {
-    private final String TAG = this.getClass().getCanonicalName();
-    private ActivityLoginBinding binding;
+public class LoginFragment extends Fragment implements View.OnFocusChangeListener {
+    private FragmentLoginBinding binding;
     private UserViewModel userViewModel;
     private String email;
     private String password;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        this.binding = ActivityLoginBinding.inflate(this.getLayoutInflater());
-        setContentView(this.binding.getRoot());
-
         this.userViewModel = UserViewModel.getInstance();
+    }
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
+        this.binding = FragmentLoginBinding.inflate(inflater, container, false);
+        this.binding.editEmail.setOnFocusChangeListener(this::onFocusChange);
+        this.binding.editPassword.setOnFocusChangeListener(this::onFocusChange);
         this.binding.btnLogin.setOnClickListener(this::loginClicked);
 
-        this.userViewModel.userLiveData.observe(this, new Observer<User>() {
+        this.userViewModel.userLiveData.observe(getViewLifecycleOwner(), new Observer<User>() {
             @Override
             public void onChanged(User user) {
                 if (user != null) {
@@ -57,6 +68,22 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         restoreLogin();
+
+        return this.binding.getRoot();
+    }
+
+    @Override
+    public void onFocusChange(View v, boolean hasFocus) {
+        if (hasFocus) {
+            switch (v.getId()) {
+                case R.id.edit_email:
+                    this.binding.labelEmail.setError(null);
+                    break;
+                case R.id.edit_password:
+                    this.binding.labelPassword.setError(null);
+                    break;
+            }
+        }
     }
 
     private void loginClicked(View view) {
@@ -67,17 +94,24 @@ public class LoginActivity extends AppCompatActivity {
         Boolean isValidInput = true;
 
         if (email.isEmpty()) {
-            this.binding.editEmail.setError("Email is required");
+            if (this.binding.labelEmail.getError() == null) {
+                this.binding.labelEmail.setError("Email is required");
+            }
             isValidInput = false;
         } else if (!this.isValidEmail(email)) {
-            this.binding.editEmail.setError("Incorrect email");
+            if (this.binding.labelEmail.getError() == null) {
+                this.binding.labelEmail.setError("Incorrect email");
+            }
             isValidInput = false;
         }
         if (password.isEmpty()) {
-            this.binding.editPassword.setError("Password is required");
+            if (this.binding.labelPassword.getError() == null) {
+                this.binding.labelPassword.setError("Password is required");
+            }
             isValidInput = false;
         }
         if (!isValidInput) {
+            this.binding.layoutLogin.clearFocus();
             return;
         }
 
@@ -102,9 +136,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void showHomeScreen() {
-        Intent intent = new Intent(this, MainActivity.class);
-        this.startActivity(intent);
-        this.finish();
+        NavController navController = NavHostFragment.findNavController(this);
+        navController.navigateUp();
+        navController.navigate(R.id.action_loginFragment_to_home_fragment);
     }
 
     private boolean isValidEmail(String email) {
@@ -112,7 +146,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void restoreLogin() {
-        SharedPreferences sharedPref = this.getSharedPreferences(
+        SharedPreferences sharedPref = this.getActivity().getSharedPreferences(
                 this.getString(R.string.preference_file_key), Context.MODE_PRIVATE);
 
         this.email = sharedPref.getString(this.getString(R.string.email_key), "");
@@ -123,7 +157,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void storeLogin(String email, String password) {
-        SharedPreferences sharedPref = this.getSharedPreferences(
+        SharedPreferences sharedPref = this.getActivity().getSharedPreferences(
                 this.getString(R.string.preference_file_key), Context.MODE_PRIVATE);
         SharedPreferences.Editor loginEditor = sharedPref.edit();
         loginEditor.putString(this.getString(R.string.email_key), email);
