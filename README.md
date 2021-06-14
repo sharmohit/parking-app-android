@@ -74,8 +74,9 @@ User must be allowed to edit the parking information except datetime of parking.
   - [x] Validate user input
   - [x] Add parking to firestore
 
-- [ ] 8. Create location helper @MohitSharma(101342267)
-  - [ ] Create MapView Screen 
+- [x] 8. Create location helper @MohitSharma(101342267)
+  - [x] Create MapView Screen
+  - [x] Configure google map api 
   - [x] Implement location controller
   - [x] Implement reverse geocoding
   - [x] Implement location geocoding
