@@ -55,7 +55,7 @@ User must be allowed to edit the parking information except datetime of parking.
   - [ ] Validate user input
   - [ ] Update user profile with firestore
 
-- [ ] 5. Create Home and Parking View Screen UI @MohitSharma(101342267)
+- [ ] 5. Create Home and Parking View Screen @MohitSharma(101342267)
   - [x] Design home and parking view screen
   - [x] Implement Jetpack Navigation with fragments
   - [x] Create home screen with bottom navigation
@@ -68,9 +68,15 @@ User must be allowed to edit the parking information except datetime of parking.
   - [ ] Fetch parking detail from firestore
   - [ ] Display parking detail
   
-- [ ] 7. Create Add Parking Screen UI @MohitSharma(101342267)
-  - [ ] Design add parking screen
-  - [ ] Fetch and convert user location
-  - [ ] Validate user input
-  - [ ] Add parking to firestore
+- [x] 7. Create Add Parking Screen @MohitSharma(101342267)
+  - [x] Design add parking screen
+  - [x] Fetch and convert user location
+  - [x] Validate user input
+  - [x] Add parking to firestore
+
+- [ ] 8. Create location helper @MohitSharma(101342267)
+  - [ ] Create MapView Screen 
+  - [x] Implement location controller
+  - [x] Implement reverse geocoding
+  - [x] Implement location geocoding
 ##
