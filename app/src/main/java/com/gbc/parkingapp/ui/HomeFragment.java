@@ -47,6 +47,14 @@ public class HomeFragment extends Fragment {
                 parkingArrayList.clear();
                 parkingArrayList.addAll(parkings);
                 adapter.notifyDataSetChanged();
+
+                if (parkings.isEmpty()) {
+                    binding.tvNoParking.setVisibility(View.VISIBLE);
+                    binding.tvAddParking.setVisibility(View.VISIBLE);
+                } else {
+                    binding.tvNoParking.setVisibility(View.GONE);
+                    binding.tvAddParking.setVisibility(View.GONE);
+                }
             }
         });
         this.parkingViewModel.getUserParkings(UserViewModel.getInstance()
@@ -72,6 +80,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        adapter.notifyDataSetChanged();
     }
 
     @Override

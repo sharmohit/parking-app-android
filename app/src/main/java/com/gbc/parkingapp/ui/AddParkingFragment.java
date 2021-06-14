@@ -8,7 +8,6 @@ Member ID: 101348129
 
 package com.gbc.parkingapp.ui;
 
-import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 
@@ -20,11 +19,9 @@ import androidx.lifecycle.Observer;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.gbc.parkingapp.R;
 import com.gbc.parkingapp.databinding.FragmentAddParkingBinding;
@@ -39,12 +36,9 @@ import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.GeoPoint;
-import com.google.type.Date;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.sql.Time;
-import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 

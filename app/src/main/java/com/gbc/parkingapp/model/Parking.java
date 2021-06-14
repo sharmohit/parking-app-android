@@ -12,7 +12,9 @@ import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.Exclude;
 import com.google.firebase.firestore.GeoPoint;
 
-public class Parking {
+import java.io.Serializable;
+
+public class Parking implements Serializable {
     private String id;
     private String building_code;
     private String car_plate_number;

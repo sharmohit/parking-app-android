@@ -15,4 +15,15 @@
         android:name="com.gbc.parkingapp.ui.AddParkingFragment"
         android:label="fragment_add_parking"
         tools:layout="@layout/fragment_add_parking" />
+    <fragment
+        android:id="@+id/map_fragment"
+        android:name="com.gbc.parkingapp.ui.MapFragment"
+        android:label="fragment_map"
+        tools:layout="@layout/fragment_map" >
+        <argument
+            android:name="parking"
+            app:argType="com.gbc.parkingapp.model.Parking"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
 </navigation>

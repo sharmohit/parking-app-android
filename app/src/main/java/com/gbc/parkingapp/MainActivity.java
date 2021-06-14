@@ -11,15 +11,21 @@ package com.gbc.parkingapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.gbc.parkingapp.databinding.ActivityMainBinding;
 import com.gbc.parkingapp.helper.LocationHelper;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
@@ -33,8 +39,19 @@ public class MainActivity extends AppCompatActivity {
 
         this.locationHelper = LocationHelper.getInstance();
 
+        BottomNavigationView navView = this.binding.bottomNavView;
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        NavigationUI.setupWithNavController(this.binding.bottomNavView, navController);
+        NavigationUI.setupWithNavController(navView, navController);
+        navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
+            @Override
+            public void onDestinationChanged(@NotNull NavController navController, @NotNull NavDestination navDestination, @Nullable Bundle bundle) {
+                if (navDestination.getId() == R.id.map_fragment) {
+                    navView.setVisibility(View.GONE);
+                } else {
+                    navView.setVisibility(View.VISIBLE);
+                }
+            }
+        });
     }
 
     @Override
