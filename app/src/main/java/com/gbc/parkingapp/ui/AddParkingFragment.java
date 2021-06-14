@@ -18,7 +18,6 @@ import androidx.lifecycle.Observer;
 
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,7 +42,6 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 public class AddParkingFragment extends Fragment implements View.OnFocusChangeListener, ChipGroup.OnCheckedChangeListener {
-    private final String TAG = this.getClass().getCanonicalName();
     private FragmentAddParkingBinding binding;
     private UserViewModel userViewModel;
     private ParkingViewModel parkingViewModel;
@@ -93,7 +91,6 @@ public class AddParkingFragment extends Fragment implements View.OnFocusChangeLi
                 locationHelper.checkPermissions(getContext());
 
                 if (locationHelper.isLocationPermissionGranted) {
-                    Log.d(TAG, "onCreate: Location Permission Granted");
                     initiateLocationListener();
                     locationHelper.getLastLocation(getContext()).observe(getViewLifecycleOwner(), new Observer<Location>() {
                         @Override
@@ -101,7 +98,6 @@ public class AddParkingFragment extends Fragment implements View.OnFocusChangeLi
                             lastLocation = location;
                             String obtainedAddress = locationHelper.getAddress(getContext(), lastLocation);
                             binding.editAddress.setText(obtainedAddress);
-                            Log.d(TAG, "onCreate: Last Location Obtained " + lastLocation.toString());
                         }
                     });
                 }
@@ -200,25 +196,35 @@ public class AddParkingFragment extends Fragment implements View.OnFocusChangeLi
     private Boolean validateInput() {
         boolean isValid = true;
         if (this.binding.editBuildingCode.getText().toString().trim().length() != 5) {
-            this.binding.labelBuildingCode.setError("Building code must have 5 alphanumeric characters");
+            if (this.binding.editBuildingCode.getError() == null) {
+                this.binding.labelBuildingCode.setError("Building code must have 5 alphanumeric characters");
+            }
             isValid = false;
         }
-        if (this.binding.editCarPlate.getText().toString().trim().length() < 2
-                || this.binding.editCarPlate.getText().length() > 8) {
-            this.binding.labelCarPlate.setError("Car plate number must be min 2 and max 8 alphanumeric characters");
+        if ((this.binding.editCarPlate.getText().toString().trim().length() < 2
+                || this.binding.editCarPlate.getText().length() > 8)) {
+            if (this.binding.editCarPlate.getError() == null) {
+                this.binding.labelCarPlate.setError("Car plate number must be min 2 and max 8 alphanumeric characters");
+            }
             isValid = false;
         }
-        if (this.binding.editSuitNumber.getText().toString().trim().length() < 2
-                || this.binding.editSuitNumber.getText().length() > 5) {
-            this.binding.labelSuitNumber.setError("Suit number must be min 2 and max 5 alphanumeric characters");
+        if ((this.binding.editSuitNumber.getText().toString().trim().length() < 2
+                || this.binding.editSuitNumber.getText().length() > 5)) {
+            if (this.binding.editSuitNumber.getError() == null) {
+                this.binding.labelSuitNumber.setError("Suit number must be min 2 and max 5 alphanumeric characters");
+            }
             isValid = false;
         }
         if (this.binding.editAddress.getText().toString().trim().isEmpty()) {
-            this.binding.labelAddress.setError("Address can't be empty");
+            if (this.binding.editAddress.getError() == null) {
+                this.binding.labelAddress.setError("Address can't be empty");
+            }
             isValid = false;
         }
         if (this.parkingHours < 0) {
-            this.binding.tvParkingHours.setError("");
+            if (this.binding.tvParkingHours.getError() == null) {
+                this.binding.tvParkingHours.setError("");
+            }
             isValid = false;
         }
 
@@ -246,7 +252,6 @@ public class AddParkingFragment extends Fragment implements View.OnFocusChangeLi
                     lastLocation = loc;
                     binding.editAddress.setText(locationHelper.getAddress(getContext(), loc));
                     locationHelper.stopLocationUpdates(getContext(), locationCallback);
-                    Log.d(TAG, "onLocationResult: Location Update " + loc.toString());
                 }
             }
         };

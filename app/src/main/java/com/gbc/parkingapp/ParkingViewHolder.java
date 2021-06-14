@@ -36,7 +36,7 @@ public class ParkingViewHolder extends RecyclerView.ViewHolder implements View.O
     @Override
     public void onClick(View v) {
         int position = getAdapterPosition();
-        if(position != RecyclerView.NO_POSITION) {
+        if (position != RecyclerView.NO_POSITION) {
             //TODO Navigate to parking details
         }
     }

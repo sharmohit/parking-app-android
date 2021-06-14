@@ -17,7 +17,6 @@ import androidx.navigation.ui.NavigationUI;
 
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import com.gbc.parkingapp.databinding.ActivityMainBinding;
@@ -45,7 +44,8 @@ public class MainActivity extends AppCompatActivity {
         navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
             @Override
             public void onDestinationChanged(@NotNull NavController navController, @NotNull NavDestination navDestination, @Nullable Bundle bundle) {
-                if (navDestination.getId() == R.id.map_fragment) {
+                if (navDestination.getId() == R.id.map_fragment
+                        || navDestination.getId() == R.id.loginFragment) {
                     navView.setVisibility(View.GONE);
                 } else {
                     navView.setVisibility(View.VISIBLE);
@@ -60,10 +60,6 @@ public class MainActivity extends AppCompatActivity {
 
         if (requestCode == this.locationHelper.REQUEST_CODE_LOCATION) {
             this.locationHelper.isLocationPermissionGranted = (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED);
-
-            if (this.locationHelper.isLocationPermissionGranted) {
-                Log.d("TEST", "onCreate: Location Permission Granted " + true);
-            }
         }
     }
 }
