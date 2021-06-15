@@ -60,6 +60,7 @@ public class HomeFragment extends Fragment {
                     binding.tvNoParking.setVisibility(View.INVISIBLE);
                     binding.tvAddParking.setVisibility(View.INVISIBLE);
                 }
+                binding.progressIndicator.setVisibility(View.INVISIBLE);
             }
         });
 
@@ -81,6 +82,7 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        this.binding.progressIndicator.setVisibility(View.VISIBLE);
         this.binding.rvParkings.setAdapter(this.adapter);
         this.binding.rvParkings.setLayoutManager(new LinearLayoutManager(this.getContext()));
     }

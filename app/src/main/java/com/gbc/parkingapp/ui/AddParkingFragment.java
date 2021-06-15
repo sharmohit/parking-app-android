@@ -69,6 +69,7 @@ public class AddParkingFragment extends Fragment implements View.OnFocusChangeLi
                         parkingViewModel.getParkingListLiveData().getValue().add(0, parking);
                     }
                 }
+                binding.progressIndicator.setVisibility(View.INVISIBLE);
             }
         });
     }
@@ -85,11 +86,12 @@ public class AddParkingFragment extends Fragment implements View.OnFocusChangeLi
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        this.binding.progressIndicator.setVisibility(View.INVISIBLE);
         this.binding.btnAddParking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (validateInput()) {
-                    addParking();
+                    fetchParkingLocation();
                 }
                 binding.layoutAddParking.clearFocus();
             }
@@ -106,13 +108,12 @@ public class AddParkingFragment extends Fragment implements View.OnFocusChangeLi
                 locationHelper.checkPermissions(getContext());
 
                 if (locationHelper.isLocationPermissionGranted) {
+                    binding.progressIndicator.setVisibility(View.VISIBLE);
                     initiateLocationListener();
                     locationHelper.getLastLocation(getContext()).observe(getViewLifecycleOwner(), new Observer<Location>() {
                         @Override
                         public void onChanged(Location location) {
                             lastLocation = location;
-                            String obtainedAddress = locationHelper.getAddress(getContext(), lastLocation);
-                            binding.editAddress.setText(obtainedAddress);
                         }
                     });
                 }
@@ -123,7 +124,7 @@ public class AddParkingFragment extends Fragment implements View.OnFocusChangeLi
     @Override
     public void onPause() {
         super.onPause();
-        this.locationHelper.stopLocationUpdates(getContext(), this.locationCallback);
+        this.locationHelper.stopLocationUpdates(getActivity().getBaseContext(), this.locationCallback);
     }
 
     @Override
@@ -176,36 +177,43 @@ public class AddParkingFragment extends Fragment implements View.OnFocusChangeLi
         this.binding.tvParkingHours.setError(null);
     }
 
-    private void addParking() {
-        Executor executor = Executors.newSingleThreadExecutor();
-        Handler handler = new Handler(Looper.getMainLooper());
-        executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                // do background work here
-                LatLng latLng = locationHelper.getLocation(getContext(), binding.editAddress
-                        .getText().toString().trim());
+    private void fetchParkingLocation() {
+        this.binding.progressIndicator.setVisibility(View.VISIBLE);
+        if (this.lastLocation == null)
+        {
+            Executor executor = Executors.newSingleThreadExecutor();
+            Handler handler = new Handler(Looper.getMainLooper());
+            executor.execute(new Runnable() {
+                @Override
+                public void run() {
+                    LatLng latLng = locationHelper.getLocation(getContext(), binding.editAddress
+                            .getText().toString().trim());
 
-                handler.post(() -> {
+                    handler.post(() -> {
+                        addParking(latLng);
+                    });
+                }
+            });
+        } else {
+            this.addParking(new LatLng(this.lastLocation.getLatitude(),this.lastLocation.getLongitude()));
+        }
+    }
 
-                    // do UI changes after background work here
-                    if (latLng == null) {
-                        Snackbar.make(getView(), "Unable to process address.", Snackbar.LENGTH_SHORT).show();
-                    } else {
-                        Parking parking = new Parking();
-                        parking.setBuilding_code(binding.editBuildingCode.getText().toString().trim());
-                        parking.setParking_hours(parkingHours);
-                        parking.setCar_plate_number(binding.editCarPlate.getText().toString().trim());
-                        parking.setSuit_number(binding.editSuitNumber.getText().toString().trim());
-                        parking.setStreet_address(binding.editAddress.getText().toString().trim());
-                        parking.setDate_time(Timestamp.now());
-                        parking.setCoordinate(
-                                new GeoPoint(latLng.latitude, latLng.longitude));
-                        parkingViewModel.addUserParking(userViewModel.userLiveData.getValue().getId(), parking);
-                    }
-                });
-            }
-        });
+    private void addParking(LatLng latLng) {
+        if (latLng == null) {
+            Snackbar.make(getView(), "Unable to process address.", Snackbar.LENGTH_SHORT).show();
+        } else {
+            Parking parking = new Parking();
+            parking.setBuilding_code(binding.editBuildingCode.getText().toString().trim());
+            parking.setParking_hours(parkingHours);
+            parking.setCar_plate_number(binding.editCarPlate.getText().toString().trim());
+            parking.setSuit_number(binding.editSuitNumber.getText().toString().trim());
+            parking.setStreet_address(binding.editAddress.getText().toString().trim());
+            parking.setDate_time(Timestamp.now());
+            parking.setCoordinate(
+                    new GeoPoint(latLng.latitude, latLng.longitude));
+            parkingViewModel.addUserParking(userViewModel.userLiveData.getValue().getId(), parking);
+        }
     }
 
     private Boolean validateInput() {
@@ -267,6 +275,7 @@ public class AddParkingFragment extends Fragment implements View.OnFocusChangeLi
                     binding.editAddress.setText(locationHelper.getAddress(getContext(), loc));
                     locationHelper.stopLocationUpdates(getContext(), locationCallback);
                 }
+                binding.progressIndicator.setVisibility(View.INVISIBLE);
             }
         };
 

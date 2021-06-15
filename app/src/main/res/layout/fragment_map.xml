@@ -27,7 +27,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:text="Parking Location"
+        android:text="@string/parking_location"
         android:textSize="20sp"
         android:textStyle="bold"
         android:textColor="@color/blue_dark"
@@ -39,7 +39,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
-        android:text="Street Address"
         android:textSize="18sp"
         app:layout_constraintTop_toBottomOf="@id/tv_title"
         app:layout_constraintStart_toStartOf="parent"/>

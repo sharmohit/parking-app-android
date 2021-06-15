@@ -48,30 +48,20 @@ public class ParkingRepository {
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            List<Parking> parkingList = new ArrayList<>();
                             if (task.isSuccessful()) {
                                 List<DocumentChange> documentChanges = task.getResult().getDocumentChanges();
                                 if (!documentChanges.isEmpty()) {
-                                    List<Parking> parkingList = new ArrayList<>();
                                     for (DocumentChange documentChange : documentChanges) {
                                         Parking parking = documentChange.getDocument().toObject(Parking.class);
                                         parking.setId(documentChange.getDocument().getId());
                                         parkingList.add(parking);
-                                        switch (documentChange.getType()) {
-                                            case ADDED:
-                                                Log.d(TAG, "onComplete: Parking Added: " + documentChange.getDocument().getData());
-                                                break;
-                                            case MODIFIED:
-                                                Log.d(TAG, "onComplete: Parking Updated: " + documentChange.getDocument().getData());
-                                                break;
-                                            case REMOVED:
-                                                Log.d(TAG, "onComplete: Parking Removed: " + documentChange.getDocument().getData());
-                                                break;
-                                        }
                                     }
                                     Log.d(TAG, "onComplete: ParkinList: " + parkingList.toString());
                                     parkingListLiveData.postValue(parkingList);
                                 } else {
                                     Log.d(TAG, "onComplete: No parkings found");
+                                    parkingListLiveData.postValue(parkingList);
                                 }
                             } else {
                                 Log.d(TAG, "onComplete: Failed: Unable to fetch parkings");
