@@ -273,7 +273,7 @@ public class AddParkingFragment extends Fragment implements View.OnFocusChangeLi
                 for (Location loc : locationResult.getLocations()) {
                     lastLocation = loc;
                     binding.editAddress.setText(locationHelper.getAddress(getContext(), loc));
-                    locationHelper.stopLocationUpdates(getContext(), locationCallback);
+                    locationHelper.stopLocationUpdates(getActivity().getBaseContext(), locationCallback);
                 }
                 binding.progressIndicator.setVisibility(View.INVISIBLE);
             }

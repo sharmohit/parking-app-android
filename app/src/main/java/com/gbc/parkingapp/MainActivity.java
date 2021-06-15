@@ -10,6 +10,7 @@ package com.gbc.parkingapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
@@ -21,7 +22,11 @@ import android.view.View;
 
 import com.gbc.parkingapp.databinding.ActivityMainBinding;
 import com.gbc.parkingapp.helper.LocationHelper;
+import com.gbc.parkingapp.model.Parking;
+import com.gbc.parkingapp.viewmodel.ParkingViewModel;
+import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.snackbar.Snackbar;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -49,6 +54,22 @@ public class MainActivity extends AppCompatActivity {
                     navView.setVisibility(View.GONE);
                 } else {
                     navView.setVisibility(View.VISIBLE);
+
+                    if (navDestination.getId() == R.id.home_fragment) {
+                        BadgeDrawable badge = navView.getBadge(R.id.home_fragment);
+                        if (badge != null) {
+                            badge.setVisible(false);
+                        }
+                    }
+                }
+            }
+        });
+        ParkingViewModel.getInstance().getNewParkingLiveData().observe(this, new Observer<Parking>() {
+            @Override
+            public void onChanged(Parking parking) {
+                if (parking != null && !parking.getId().isEmpty()) {
+                    BadgeDrawable badge = navView.getOrCreateBadge(R.id.home_fragment);
+                    badge.setVisible(true);
                 }
             }
         });
@@ -60,6 +81,10 @@ public class MainActivity extends AppCompatActivity {
 
         if (requestCode == this.locationHelper.REQUEST_CODE_LOCATION) {
             this.locationHelper.isLocationPermissionGranted = (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED);
+
+            if (!this.locationHelper.isLocationPermissionGranted) {
+                Snackbar.make(this.binding.getRoot(), "Location Access not Granted. Please Try Again.", Snackbar.LENGTH_SHORT).show();
+            }
         }
     }
 }
