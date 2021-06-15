@@ -39,6 +39,7 @@ public class HomeFragment extends Fragment {
     private ParkingAdapter adapter;
     private ArrayList<Parking> parkingArrayList = new ArrayList<>();
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

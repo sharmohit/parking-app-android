@@ -12,6 +12,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.gbc.parkingapp.model.Parking;
+import com.gbc.parkingapp.model.User;
 import com.gbc.parkingapp.repository.ParkingRepository;
 
 import java.util.List;
@@ -22,6 +23,11 @@ public class ParkingViewModel extends ViewModel {
     private final ParkingRepository parkingRepository = new ParkingRepository();
     private MutableLiveData<Parking> newParkingLiveData = new MutableLiveData<>();
     private MutableLiveData<List<Parking>> parkingListLiveData = new MutableLiveData<>();
+
+    private static final Parking parkingInstance = new Parking();
+    public static Parking parkingInstance() {
+        return parkingInstance;
+    }
 
     public static ParkingViewModel getInstance() {
         if (instance == null) {

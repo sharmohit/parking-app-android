@@ -26,7 +26,6 @@ public class UserViewModel extends ViewModel {
         if (instance == null) {
             instance = new UserViewModel();
         }
-
         return instance;
     }
 
@@ -36,5 +35,11 @@ public class UserViewModel extends ViewModel {
 
     public void getUserByEmail(String email) {
         this.userRepository.getUserByEmail(email, this.userLiveData);
+    }
+    public void signUpUser(User user) {
+        this.userRepository.signUpUser(user,this.userLiveData);
+    }
+    public void updateUser(User user){
+        this.userRepository.updateUser(user);
     }
 }
