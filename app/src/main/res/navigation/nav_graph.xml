@@ -26,9 +26,4 @@
             app:nullable="true"
             android:defaultValue="@null" />
     </fragment>
-    <fragment
-        android:id="@+id/updateFragment"
-        android:name="com.gbc.parkingapp.UpdateFragment"
-        android:label="fragment_update"
-        tools:layout="@layout/fragment_update" />
 </navigation>
