@@ -42,4 +42,8 @@ public class UserViewModel extends ViewModel {
     public void updateUser(User user){
         this.userRepository.updateUser(user);
     }
+
+    public void deleteUser(){
+        this.userRepository.deleteUser();
+    }
 }

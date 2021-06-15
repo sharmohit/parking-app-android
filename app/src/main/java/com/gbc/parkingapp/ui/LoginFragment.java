@@ -51,6 +51,7 @@ public class LoginFragment extends Fragment implements View.OnFocusChangeListene
         this.binding.editEmail.setOnFocusChangeListener(this::onFocusChange);
         this.binding.editPassword.setOnFocusChangeListener(this::onFocusChange);
         this.binding.btnLogin.setOnClickListener(this::loginClicked);
+        this.binding.btnSignUp.setOnClickListener(this::signUpClicked);
         this.binding.progressIndicator.setVisibility(View.INVISIBLE);
 
         this.userViewModel.userLiveData.observe(getViewLifecycleOwner(), new Observer<User>() {
@@ -142,6 +143,11 @@ public class LoginFragment extends Fragment implements View.OnFocusChangeListene
         NavController navController = NavHostFragment.findNavController(this);
         navController.navigateUp();
         navController.navigate(R.id.action_loginFragment_to_home_fragment);
+    }
+
+    private void signUpClicked(View view){
+        NavController navController = NavHostFragment.findNavController(this);
+        navController.navigate(R.id.action_loginFragment_to_signUpFragment);
     }
 
     private boolean isValidEmail(String email) {

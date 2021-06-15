@@ -12,6 +12,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.gbc.parkingapp.databinding.ParkingRowLayoutBinding;
@@ -22,9 +23,11 @@ import java.util.ArrayList;
 public class ParkingAdapter extends RecyclerView.Adapter<ParkingViewHolder> {
     private ArrayList<Parking> parkings;
     private Context context;
+    private Fragment fragment;
 
-    public ParkingAdapter(Context context, ArrayList<Parking> parkings) {
+    public ParkingAdapter(Context context, androidx.fragment.app.Fragment fragment, ArrayList<Parking> parkings) {
         this.context = context;
+        this.fragment = fragment;
         this.parkings = parkings;
     }
 
@@ -39,7 +42,7 @@ public class ParkingAdapter extends RecyclerView.Adapter<ParkingViewHolder> {
     @Override
     public void onBindViewHolder(ParkingViewHolder parkingViewHolder, final int position) {
         Parking parking = this.parkings.get(position);
-        parkingViewHolder.bind(this.context, parking);
+        parkingViewHolder.bind(this.context, this.fragment, parking);
     }
 
     @Override

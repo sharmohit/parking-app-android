@@ -45,7 +45,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDestinationChanged(@NotNull NavController navController, @NotNull NavDestination navDestination, @Nullable Bundle bundle) {
                 if (navDestination.getId() == R.id.map_fragment
-                        || navDestination.getId() == R.id.loginFragment) {
+                        || navDestination.getId() == R.id.loginFragment
+                || navDestination.getId() == R.id.signUpFragment) {
                     navView.setVisibility(View.GONE);
                 } else {
                     navView.setVisibility(View.VISIBLE);
