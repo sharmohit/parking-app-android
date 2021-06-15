@@ -1,7 +1,5 @@
 package com.gbc.parkingapp.ui;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,18 +8,23 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.gbc.parkingapp.R;
 import com.gbc.parkingapp.databinding.FragmentProfileBinding;
+import com.gbc.parkingapp.databinding.FragmentSignUpBinding;
 import com.gbc.parkingapp.model.User;
 import com.gbc.parkingapp.viewmodel.UserViewModel;
 
-public class ProfileFragment extends Fragment {
+
+public class SignUpFragment extends Fragment {
+
+
     private final String TAG = this.getClass().getCanonicalName();
-    private FragmentProfileBinding binding;
+    private FragmentSignUpBinding binding;
 
     private UserViewModel userViewModel;
     private User user;
@@ -37,7 +40,8 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.userViewModel = UserViewModel.getInstance();
+
+            this.userViewModel = UserViewModel.getInstance();
 
     }
 
@@ -45,52 +49,31 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        this.binding = FragmentProfileBinding.inflate(inflater,container,false);
+        this.binding = FragmentSignUpBinding.inflate(inflater,container,false);
 
-        name = this.userViewModel.userLiveData.getValue().getName();
-        email = this.userViewModel.userLiveData.getValue().getEmail();
-        password = this.userViewModel.userLiveData.getValue().getPassword();
-        phone = this.userViewModel.userLiveData.getValue().getPhone();
-        car_plate_number = this.userViewModel.userLiveData.getValue().getCar_plate_number();
-
-        this.binding.editName.setText(name);
-        this.binding.editEmail.setText(email);
-        this.binding.editPassword.setText(password);
-        this.binding.editPhone.setText(phone);
-        this.binding.editCarPlateNumber.setText(car_plate_number);
+        name = this.binding.editName.getText().toString();
+        email = this.binding.editEmail.getText().toString();
+        password = this.binding.editPassword.getText().toString();
+        phone = this.binding.editPhone.getText().toString();
+        car_plate_number = this.binding.editCarPlateNumber.getText().toString();
 
         return this.binding.getRoot();
 
     }
 
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        this.binding.btnUpdate.setOnClickListener(new View.OnClickListener() {
+        this.binding.btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (validateInput()) {
-                    btnUpdateClicked();
+                    btnSignUpClicked();
                 }
             }
         });
-
-        this.binding.btnLogout.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                    btnLogoutClicked();
-            }
-        });
-
-        this.binding.btnDelete.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                    btnDeleteClicked();
-            }
-        });
-
-
 
         binding.editName.setOnFocusChangeListener(this::onFocusChange);
         binding.editEmail.setOnFocusChangeListener(this::onFocusChange);
@@ -98,7 +81,6 @@ public class ProfileFragment extends Fragment {
         binding.editPhone.setOnFocusChangeListener(this::onFocusChange);
         binding.editCarPlateNumber.setOnFocusChangeListener(this::onFocusChange);
     }
-
 
     public void onFocusChange(View v, boolean hasFocus) {
         if (hasFocus) {
@@ -121,7 +103,6 @@ public class ProfileFragment extends Fragment {
             }
         }
     }
-
 
     private Boolean validateInput() {
         boolean isValid = true;
@@ -152,7 +133,12 @@ public class ProfileFragment extends Fragment {
         return isValid;
     }
 
-    public void btnUpdateClicked (){
+    private boolean isValidEmail(String email) {
+        return Patterns.EMAIL_ADDRESS.matcher(email).matches();
+    }
+
+    public void btnSignUpClicked(){
+
 
         name = this.binding.editName.getText().toString();
         email = this.binding.editEmail.getText().toString();
@@ -160,10 +146,24 @@ public class ProfileFragment extends Fragment {
         phone = this.binding.editPhone.getText().toString();
         car_plate_number = this.binding.editCarPlateNumber.getText().toString();
 
-        // Store values in User Singleton
-        storeValuesInUser();
 
-        // Store values in FireStore database
+        Boolean isValidInput = true;
+
+        if (email.isEmpty()) {
+            this.binding.editEmail.setError("Email is required");
+            isValidInput = false;
+        } else if (!this.isValidEmail(email)) {
+            this.binding.editEmail.setError("Incorrect email");
+            isValidInput = false;
+        }
+        if (password.isEmpty()) {
+            this.binding.editPassword.setError("Password is required");
+            isValidInput = false;
+        }
+        if (!isValidInput) {
+            return;
+        }
+
         User user = new User();
 
         user.setName(name);
@@ -172,38 +172,16 @@ public class ProfileFragment extends Fragment {
         user.setPhone(phone);
         user.setCar_plate_number(car_plate_number);
 
-        this.userViewModel.updateUser(user);
-
-    }
-    public void btnLogoutClicked(){
-
-        SharedPreferences sharedPref = this.getActivity().getSharedPreferences(
-                this.getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-        SharedPreferences.Editor loginEditor = sharedPref.edit();
-        loginEditor.putString(this.getString(R.string.email_key), "");
-        loginEditor.putString(this.getString(R.string.password_key), "");
-        loginEditor.apply();
-        moveToHomeScreen();
-
+        this.userViewModel.signUpUser(user);
+        userViewModel.userLiveData.postValue(user);
+        showHomeScreen();
     }
 
-    public void  btnDeleteClicked(){
-        this.userViewModel.deleteUser();
-        moveToHomeScreen();
-    }
-
-    private void moveToHomeScreen(){
+    private void showHomeScreen() {
         NavController navController = NavHostFragment.findNavController(this);
         navController.navigateUp();
-        navController.navigate(R.id.action_profile_fragment_to_loginFragment);
-    }
+        navController.navigate(R.id.action_loginFragment_to_home_fragment);
 
-    public void storeValuesInUser(){
-        userViewModel.userLiveData.getValue().setName(name);
-        userViewModel.userLiveData.getValue().setEmail(email);
-        userViewModel.userLiveData.getValue().setPassword(password);
-        userViewModel.userLiveData.getValue().setPhone(phone);
-        userViewModel.userLiveData.getValue().setCar_plate_number(car_plate_number);
     }
 
 }

@@ -44,7 +44,7 @@ public class HomeFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        this.adapter = new ParkingAdapter(this.getContext(), this.parkingArrayList);
+        this.adapter = new ParkingAdapter(this.getContext(), this, this.parkingArrayList);
         this.parkingViewModel = ParkingViewModel.getInstance();
 
         this.parkingViewModel.getParkingListLiveData().observe(this, new Observer<List<Parking>>() {

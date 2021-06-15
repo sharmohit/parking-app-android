@@ -114,4 +114,23 @@ public class UserRepository {
                 .document(id)
                 .update(data);
     }
+
+    public void deleteUser() {
+
+        db.collection(COLLECTION_NAME).document(id)
+                .delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "DocumentSnapshot successfully deleted!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error deleting document", e);
+                    }
+                });
+    }
+
 }
