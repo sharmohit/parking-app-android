@@ -37,11 +37,11 @@ User must be allowed to edit the parking information except datetime of parking.
   - [x] Validate user
   - [x] Add navigation to sign-up and home screens
 
-- [ ] 2. Create Sign-Up Screen @JavteshSinghBhullar(101348129)
-  - [ ] Design sign-up layout
-  - [ ] Validate user input
-  - [ ] Implement sign-up
-  - [ ] Add navigation to sign-in and home screens
+- [x] 2. Create Sign-Up Screen @JavteshSinghBhullar(101348129)
+  - [x] Design sign-up layout
+  - [x] Validate user input
+  - [x] Implement sign-up
+  - [x] Add navigation to sign-in and home screens
 
 - [x] 3. Configure Firestore Console and Firebase in Project @MohitSharma(101342267)
   - [x] Create firebase app and configure firestore in console
@@ -49,24 +49,24 @@ User must be allowed to edit the parking information except datetime of parking.
   - [x] Add firebase gradle dependencies
   - [x] Test firestore with test data
 
-- [ ] 4. Create Update Profile Screen @JavteshSinghBhullar(101348129)
-  - [ ] Design update profile screen
-  - [ ] Fetch user input
-  - [ ] Validate user input
-  - [ ] Update user profile with firestore
+- [x] 4. Create Update Profile Screen @JavteshSinghBhullar(101348129)
+  - [x] Design update profile screen
+  - [x] Fetch user input
+  - [x] Validate user input
+  - [x] Update user profile with firestore
 
-- [ ] 5. Create Home and Parking View Screen @MohitSharma(101342267)
+- [x] 5. Create Home and Parking View Screen @MohitSharma(101342267)
   - [x] Design home and parking view screen
   - [x] Implement Jetpack Navigation with fragments
   - [x] Create home screen with bottom navigation
   - [x] Implement recycler view for view parking screen
   - [x] Fetch user parking from firestore
-  - [ ] Link parkings with parking detail screen
+  - [x] Link parkings with parking detail screen
  
-- [ ] 6. Create Parking Detail View Screen @JavteshSinghBhullar(101348129)
-  - [ ] Design parking detail view screen
-  - [ ] Fetch parking detail from firestore
-  - [ ] Display parking detail
+- [x] 6. Create Parking Detail View Screen @JavteshSinghBhullar(101348129)
+  - [x] Design parking detail view screen
+  - [x] Fetch parking detail from firestore
+  - [x] Display and edit parking detail
   
 - [x] 7. Create Add Parking Screen @MohitSharma(101342267)
   - [x] Design add parking screen
