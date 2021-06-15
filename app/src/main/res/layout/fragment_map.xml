@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        app:srcCompat="@drawable/googleg_standard_color_18"
+        app:srcCompat="@drawable/ic_baseline_arrow_back_24"
         app:backgroundTint="@color/white"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
@@ -27,10 +27,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:text="Parking Location"
+        android:text="@string/parking_location"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:textColor="@color/purple_700"
+        android:textColor="@color/blue_dark"
         app:layout_constraintTop_toBottomOf="@id/map_view"
         app:layout_constraintStart_toStartOf="parent"/>
 
@@ -39,7 +39,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
-        android:text="Street Address"
         android:textSize="18sp"
         app:layout_constraintTop_toBottomOf="@id/tv_title"
         app:layout_constraintStart_toStartOf="parent"/>

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/home_fragment">
+    app:startDestination="@id/loginFragment">
 
     <fragment
         android:id="@+id/home_fragment"
@@ -25,5 +25,16 @@
             app:argType="com.gbc.parkingapp.model.Parking"
             app:nullable="true"
             android:defaultValue="@null" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.gbc.parkingapp.ui.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_home_fragment"
+            app:destination="@id/home_fragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>

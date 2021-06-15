@@ -71,7 +71,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, View.On
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         Log.d(TAG, "onViewCreated: " + parking.getId() );
     }
 
@@ -85,15 +84,15 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, View.On
             return;
         }
 
-        LatLng sydney = new LatLng(this.parking.getCoordinate().getLatitude(),
+        LatLng parkingLocation = new LatLng(this.parking.getCoordinate().getLatitude(),
                 this.parking.getCoordinate().getLongitude());
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(parkingLocation));
 
         this.googleMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
             @Override
             public void onMapLoaded() {
-                googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(sydney, 15.0f));
+                googleMap.addMarker(new MarkerOptions().position(parkingLocation).title("Parking"));
+                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(parkingLocation, 15.0f));
             }
         });
     }

@@ -21,6 +21,7 @@ public class ParkingViewModel extends ViewModel {
 
     private static ParkingViewModel instance;
     private final ParkingRepository parkingRepository = new ParkingRepository();
+    private MutableLiveData<Parking> newParkingLiveData = new MutableLiveData<>();
     private MutableLiveData<List<Parking>> parkingListLiveData = new MutableLiveData<>();
 
     private static final Parking parkingInstance = new Parking();
@@ -45,7 +46,11 @@ public class ParkingViewModel extends ViewModel {
     }
 
     public void addUserParking(String userId, Parking parking){
-        this.parkingRepository.addUserParking(userId, parking);
+        this.parkingRepository.addUserParking(userId, parking, this.newParkingLiveData);
+    }
+
+    public MutableLiveData<Parking> getNewParkingLiveData() {
+        return newParkingLiveData;
     }
 
     public MutableLiveData<List<Parking>> getParkingListLiveData() {

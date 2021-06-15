@@ -8,6 +8,7 @@ Member ID: 101348129
 
 package com.gbc.parkingapp.ui;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -27,6 +28,8 @@ import com.gbc.parkingapp.model.Parking;
 import com.gbc.parkingapp.viewmodel.ParkingViewModel;
 import com.gbc.parkingapp.viewmodel.UserViewModel;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,6 +46,7 @@ public class HomeFragment extends Fragment {
 
         this.adapter = new ParkingAdapter(this.getContext(), this.parkingArrayList);
         this.parkingViewModel = ParkingViewModel.getInstance();
+
         this.parkingViewModel.getParkingListLiveData().observe(this, new Observer<List<Parking>>() {
             @Override
             public void onChanged(List<Parking> parkings) {
@@ -54,15 +58,17 @@ public class HomeFragment extends Fragment {
                     binding.tvNoParking.setVisibility(View.VISIBLE);
                     binding.tvAddParking.setVisibility(View.VISIBLE);
                 } else {
-                    binding.tvNoParking.setVisibility(View.GONE);
-                    binding.tvAddParking.setVisibility(View.GONE);
+                    binding.tvNoParking.setVisibility(View.INVISIBLE);
+                    binding.tvAddParking.setVisibility(View.INVISIBLE);
                 }
+                binding.progressIndicator.setVisibility(View.INVISIBLE);
             }
         });
 
-        this.parkingViewModel.getUserParkings(UserViewModel.getInstance()
-                .userLiveData.getValue().getId());
-
+        if (this.parkingViewModel.getParkingListLiveData().getValue() == null) {
+            this.parkingViewModel.getUserParkings(UserViewModel.getInstance()
+                    .userLiveData.getValue().getId());
+        }
     }
 
     @Override
@@ -77,6 +83,7 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        this.binding.progressIndicator.setVisibility(View.VISIBLE);
         this.binding.rvParkings.setAdapter(this.adapter);
         this.binding.rvParkings.setLayoutManager(new LinearLayoutManager(this.getContext()));
     }
