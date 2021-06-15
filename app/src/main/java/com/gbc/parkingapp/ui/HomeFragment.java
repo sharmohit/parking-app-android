@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ import android.view.ViewGroup;
 import com.gbc.parkingapp.ParkingAdapter;
 import com.gbc.parkingapp.databinding.FragmentHomeBinding;
 import com.gbc.parkingapp.model.Parking;
+import com.gbc.parkingapp.model.User;
 import com.gbc.parkingapp.viewmodel.ParkingViewModel;
 import com.gbc.parkingapp.viewmodel.UserViewModel;
 
@@ -32,8 +34,11 @@ import java.util.List;
 public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
     private ParkingViewModel parkingViewModel;
+    private UserViewModel userViewModel;
     private ParkingAdapter adapter;
     private ArrayList<Parking> parkingArrayList = new ArrayList<>();
+
+    private final String TAG = this.getClass().getCanonicalName();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,6 +46,7 @@ public class HomeFragment extends Fragment {
 
         this.adapter = new ParkingAdapter(this.getContext(), this.parkingArrayList);
         this.parkingViewModel = ParkingViewModel.getInstance();
+        this.userViewModel = UserViewModel.getInstance();
         this.parkingViewModel.getParkingListLiveData().observe(this, new Observer<List<Parking>>() {
             @Override
             public void onChanged(List<Parking> parkings) {
@@ -57,8 +63,11 @@ public class HomeFragment extends Fragment {
                 }
             }
         });
+
+        Log.d(TAG, "onCreate: name is : " + this.userViewModel.userLiveData.getValue().getName());
         this.parkingViewModel.getUserParkings(UserViewModel.getInstance()
                 .userLiveData.getValue().getId());
+
     }
 
     @Override

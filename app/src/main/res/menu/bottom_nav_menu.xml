@@ -8,7 +8,7 @@
         android:title="Add Parking"
         android:icon="@drawable/ic_launcher_foreground"
         android:menuCategory="secondary"/>
-    <item android:id="@+id/profile_fragment"
+    <item android:id="@+id/updateFragment"
         android:title="Profile"
         android:icon="@drawable/ic_launcher_foreground"
         android:menuCategory="secondary"/>

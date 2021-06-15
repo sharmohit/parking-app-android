@@ -41,6 +41,8 @@ public class LoginActivity extends AppCompatActivity {
 
         this.binding.btnLogin.setOnClickListener(this::loginClicked);
 
+        this.binding.btnSignUp.setOnClickListener(this::signUpClicked);
+
         this.userViewModel.userLiveData.observe(this, new Observer<User>() {
             @Override
             public void onChanged(User user) {
@@ -129,5 +131,11 @@ public class LoginActivity extends AppCompatActivity {
         loginEditor.putString(this.getString(R.string.email_key), email);
         loginEditor.putString(this.getString(R.string.password_key), password);
         loginEditor.apply();
+    }
+
+    public void signUpClicked(View view){
+
+        Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
+        startActivity(intent);
     }
 }
