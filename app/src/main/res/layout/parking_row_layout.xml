@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginLeft="10dp"
-    android:layout_marginTop="10dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="5dp"
     android:layout_marginRight="10dp"
     card_view:cardCornerRadius="10dp">
 
@@ -19,10 +20,11 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_margin="5dp"
+            android:src="@drawable/ic_baseline_directions_car_24"
             android:contentDescription="Icon"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@android:drawable/ic_menu_myplaces" />
+            app:tint="@color/red_dark" />
 
         <TextView
             android:id="@+id/tv_carPlate"
@@ -32,6 +34,7 @@
             android:text="CARPLATE"
             android:textSize="22sp"
             android:textStyle="bold"
+            android:textColor="@color/blue_dark"
             app:layout_constraintStart_toEndOf="@id/iv_icon"
             app:layout_constraintTop_toTopOf="parent" />
 

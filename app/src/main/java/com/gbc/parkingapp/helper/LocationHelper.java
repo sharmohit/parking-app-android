@@ -121,11 +121,6 @@ public class LocationHelper {
             Log.d(TAG, "getAddress: Address: " + address);
 
             Address addressObj = addressList.get(0);
-            Log.d(TAG, "getAddress: Country Country: " + addressObj.getCountryName());
-            Log.d(TAG, "getAddress: Country City: " + addressObj.getLocality());
-            Log.d(TAG, "getAddress: Country Postal Code: " + addressObj.getPostalCode());
-            Log.d(TAG, "getAddress: Country Province: " + addressObj.getAdminArea());
-
             return address;
 
         } catch (Exception e) {

@@ -8,6 +8,7 @@ Member ID: 101348129
 
 package com.gbc.parkingapp.ui;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +27,8 @@ import com.gbc.parkingapp.databinding.FragmentHomeBinding;
 import com.gbc.parkingapp.model.Parking;
 import com.gbc.parkingapp.viewmodel.ParkingViewModel;
 import com.gbc.parkingapp.viewmodel.UserViewModel;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +45,7 @@ public class HomeFragment extends Fragment {
 
         this.adapter = new ParkingAdapter(this.getContext(), this.parkingArrayList);
         this.parkingViewModel = ParkingViewModel.getInstance();
+
         this.parkingViewModel.getParkingListLiveData().observe(this, new Observer<List<Parking>>() {
             @Override
             public void onChanged(List<Parking> parkings) {
@@ -52,13 +57,16 @@ public class HomeFragment extends Fragment {
                     binding.tvNoParking.setVisibility(View.VISIBLE);
                     binding.tvAddParking.setVisibility(View.VISIBLE);
                 } else {
-                    binding.tvNoParking.setVisibility(View.GONE);
-                    binding.tvAddParking.setVisibility(View.GONE);
+                    binding.tvNoParking.setVisibility(View.INVISIBLE);
+                    binding.tvAddParking.setVisibility(View.INVISIBLE);
                 }
             }
         });
-        this.parkingViewModel.getUserParkings(UserViewModel.getInstance()
-                .userLiveData.getValue().getId());
+
+        if (this.parkingViewModel.getParkingListLiveData().getValue() == null) {
+            this.parkingViewModel.getUserParkings(UserViewModel.getInstance()
+                    .userLiveData.getValue().getId());
+        }
     }
 
     @Override

@@ -84,7 +84,7 @@ public class ParkingRepository {
         }
     }
 
-    public void addUserParking(String userId, Parking parking) {
+    public void addUserParking(String userId, Parking parking, MutableLiveData<Parking> newParkingLiveData) {
         try {
             this.db.collection(COLLECTION_USER)
                     .document(userId)
@@ -93,13 +93,15 @@ public class ParkingRepository {
                     .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                         @Override
                         public void onSuccess(DocumentReference documentReference) {
-                            Log.d(TAG, "onSuccess: Parking added successfully");
+                            parking.setId(documentReference.getId());
+                            newParkingLiveData.postValue(parking);
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             Log.e(TAG, "onFailure: Unable to add parking " + e.getLocalizedMessage());
+                            newParkingLiveData.postValue(new Parking());
                         }
                     });
         } catch (Exception e) {
