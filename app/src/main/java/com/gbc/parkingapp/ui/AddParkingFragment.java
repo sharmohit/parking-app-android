@@ -57,6 +57,20 @@ public class AddParkingFragment extends Fragment implements View.OnFocusChangeLi
         this.parkingViewModel = ParkingViewModel.getInstance();
         this.locationHelper = LocationHelper.getInstance();
         this.parkingHours = -1;
+        this.parkingViewModel.getNewParkingLiveData().observe(this, new Observer<Parking>() {
+            @Override
+            public void onChanged(Parking parking) {
+                if (parking != null) {
+                    if (parking.getId().isEmpty()) {
+                        Snackbar.make(getView(), "Unable to add Parking.", Snackbar.LENGTH_SHORT).show();
+                    } else {
+                        Snackbar.make(getView(), "Parking added successfully.", Snackbar.LENGTH_SHORT).show();
+                        clearAllInput();
+                        parkingViewModel.getParkingListLiveData().getValue().add(0, parking);
+                    }
+                }
+            }
+        });
     }
 
     @Override
@@ -77,6 +91,7 @@ public class AddParkingFragment extends Fragment implements View.OnFocusChangeLi
                 if (validateInput()) {
                     addParking();
                 }
+                binding.layoutAddParking.clearFocus();
             }
         });
 
@@ -114,7 +129,9 @@ public class AddParkingFragment extends Fragment implements View.OnFocusChangeLi
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        binding = null;
+        this.parkingViewModel.getNewParkingLiveData().removeObservers(this);
+        this.parkingViewModel.getNewParkingLiveData().setValue(null);
+        this.binding = null;
     }
 
     @Override
@@ -185,8 +202,6 @@ public class AddParkingFragment extends Fragment implements View.OnFocusChangeLi
                         parking.setCoordinate(
                                 new GeoPoint(latLng.latitude, latLng.longitude));
                         parkingViewModel.addUserParking(userViewModel.userLiveData.getValue().getId(), parking);
-                        Snackbar.make(getView(), "Parking added successfully.", Snackbar.LENGTH_SHORT).show();
-                        clearAllInput();
                     }
                 });
             }
@@ -232,7 +247,6 @@ public class AddParkingFragment extends Fragment implements View.OnFocusChangeLi
     }
 
     private void clearAllInput() {
-        this.binding.layoutAddParking.clearFocus();
         this.binding.editBuildingCode.getText().clear();
         this.binding.editCarPlate.getText().clear();
         this.binding.editSuitNumber.getText().clear();
