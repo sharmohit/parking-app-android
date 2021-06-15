@@ -1,32 +1,23 @@
-package com.gbc.parkingapp;
+package com.gbc.parkingapp.ui;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.location.Location;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 
-import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.gbc.parkingapp.databinding.FragmentAddParkingBinding;
-import com.gbc.parkingapp.databinding.FragmentUpdateBinding;
+import com.gbc.parkingapp.R;
+import com.gbc.parkingapp.databinding.FragmentProfileBinding;
 import com.gbc.parkingapp.model.User;
 import com.gbc.parkingapp.viewmodel.UserViewModel;
 
-
-public class UpdateFragment extends Fragment {
-
+public class ProfileFragment extends Fragment {
     private final String TAG = this.getClass().getCanonicalName();
-    private FragmentUpdateBinding binding;
+    private FragmentProfileBinding binding;
 
     private UserViewModel userViewModel;
     private User user;
@@ -44,19 +35,19 @@ public class UpdateFragment extends Fragment {
         super.onCreate(savedInstanceState);
         this.userViewModel = UserViewModel.getInstance();
 
-        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        this.binding = FragmentUpdateBinding.inflate(inflater,container,false);
+        this.binding = FragmentProfileBinding.inflate(inflater,container,false);
 
-          name = this.userViewModel.userLiveData.getValue().getName();
-          email = this.userViewModel.userLiveData.getValue().getEmail();
-          password = this.userViewModel.userLiveData.getValue().getPassword();
-          phone = this.userViewModel.userLiveData.getValue().getPhone();
-          car_plate_number = this.userViewModel.userLiveData.getValue().getCar_plate_number();
+        name = this.userViewModel.userLiveData.getValue().getName();
+        email = this.userViewModel.userLiveData.getValue().getEmail();
+        password = this.userViewModel.userLiveData.getValue().getPassword();
+        phone = this.userViewModel.userLiveData.getValue().getPhone();
+        car_plate_number = this.userViewModel.userLiveData.getValue().getCar_plate_number();
 
         this.binding.editName.setText(name);
         this.binding.editEmail.setText(email);

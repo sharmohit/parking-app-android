@@ -107,13 +107,13 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     public void loginClicked(View view){
-        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-        startActivity(intent);
+        //Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+        //startActivity(intent);
     }
 
     private void showHomeScreen() {
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-        startActivity(intent);
+        //Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        //startActivity(intent);
     }
 
     private boolean isValidEmail(String email) {
