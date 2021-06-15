@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:text="Add Parking"
+        android:text="@string/add_parking"
         android:textSize="22sp"
         android:textStyle="bold"
         android:textColor="@color/blue_dark"
@@ -26,7 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:hint="Building Code"
+        android:hint="@string/building_code"
         app:counterEnabled="true"
         app:errorEnabled="true"
         app:counterMaxLength="5"
@@ -50,7 +50,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:text="Parking Hours"
+        android:text="@string/parking_hours"
         android:textSize="16sp"
         app:layout_constraintTop_toBottomOf="@id/label_building_code"
         app:layout_constraintStart_toStartOf="parent"/>
@@ -69,25 +69,25 @@
             android:id="@+id/chip_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1 hour or less"
+            android:text="@string/_1_hour_or_less"
             style="@style/Widget.MaterialComponents.Chip.Choice"/>
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="4 hours"
+            android:text="@string/_4_hours"
             style="@style/Widget.MaterialComponents.Chip.Choice"/>
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="12 hours"
+            android:text="@string/_12_hours"
             style="@style/Widget.MaterialComponents.Chip.Choice"/>
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="24 hours"
+            android:text="@string/_24_hours"
             style="@style/Widget.MaterialComponents.Chip.Choice"/>
 
     </com.google.android.material.chip.ChipGroup>
@@ -98,7 +98,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:hint="Car Plate Number"
+        android:hint="@string/car_plate_number"
         app:errorEnabled="true"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         app:layout_constraintTop_toBottomOf="@id/chip_group_hours"
@@ -121,7 +121,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:hint="Suit Number"
+        android:hint="@string/suit_number"
         app:errorEnabled="true"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         app:layout_constraintTop_toBottomOf="@id/label_car_plate"
@@ -144,7 +144,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:hint="Address"
+        android:hint="@string/address"
         app:errorEnabled="true"
         app:endIconMode="custom"
         app:endIconDrawable="@drawable/ic_baseline_my_location_24"
@@ -161,6 +161,12 @@
             android:inputType="text"
             />
 
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/progress_indicator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true" />
+
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
@@ -168,7 +174,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:text="Add Parking"
+        android:text="@string/add_parking"
         app:layout_constraintTop_toBottomOf="@id/label_address"
         app:layout_constraintEnd_toEndOf="parent"/>
 

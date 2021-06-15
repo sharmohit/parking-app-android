@@ -51,6 +51,7 @@ public class LoginFragment extends Fragment implements View.OnFocusChangeListene
         this.binding.editEmail.setOnFocusChangeListener(this::onFocusChange);
         this.binding.editPassword.setOnFocusChangeListener(this::onFocusChange);
         this.binding.btnLogin.setOnClickListener(this::loginClicked);
+        this.binding.progressIndicator.setVisibility(View.INVISIBLE);
 
         this.userViewModel.userLiveData.observe(getViewLifecycleOwner(), new Observer<User>() {
             @Override
@@ -64,6 +65,7 @@ public class LoginFragment extends Fragment implements View.OnFocusChangeListene
                 } else {
                     showSnackBar("Something went wrong");
                 }
+                binding.progressIndicator.setVisibility(View.INVISIBLE);
             }
         });
 
@@ -115,6 +117,7 @@ public class LoginFragment extends Fragment implements View.OnFocusChangeListene
             return;
         }
 
+        this.binding.progressIndicator.setVisibility(View.VISIBLE);
         this.userViewModel.getUserByEmail(this.email);
     }
 
