@@ -38,15 +38,14 @@
             app:layout_constraintStart_toEndOf="@id/iv_icon"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/tv_dateTime"
+        <ImageView
+            android:id="@+id/iv_location_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:text="Date and Time"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/iv_icon" />
+            android:src="@drawable/ic_baseline_location_on_24"
+            app:layout_constraintStart_toEndOf="@id/iv_icon"
+            app:layout_constraintTop_toBottomOf="@id/tv_carPlate"
+            app:tint="@color/blue_dark" />
 
         <TextView
             android:id="@+id/tv_location"
@@ -55,8 +54,27 @@
             android:layout_margin="5dp"
             android:text="Location"
             android:textSize="14sp"
-            app:layout_constraintStart_toEndOf="@id/iv_icon"
+            app:layout_constraintStart_toEndOf="@id/iv_location_icon"
             app:layout_constraintTop_toBottomOf="@id/tv_carPlate" />
+
+        <ImageView
+            android:id="@+id/iv_date_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_date_range_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_icon"
+            app:tint="@color/blue_dark" />
+
+        <TextView
+            android:id="@+id/tv_dateTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="Date and Time"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@id/iv_date_icon"
+            app:layout_constraintTop_toBottomOf="@id/iv_icon" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
