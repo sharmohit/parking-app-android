@@ -17,6 +17,7 @@ import com.gbc.parkingapp.databinding.FragmentDetailParkingBinding;
 import com.gbc.parkingapp.databinding.FragmentProfileBinding;
 import com.gbc.parkingapp.model.Parking;
 import com.gbc.parkingapp.viewmodel.ParkingViewModel;
+import com.gbc.parkingapp.viewmodel.UserViewModel;
 import com.google.firebase.firestore.GeoPoint;
 
 import java.text.DateFormat;
@@ -31,11 +32,11 @@ public class DetailParkingFragment extends Fragment {
     private Parking parking;
 
     private String buildingCode ;
-    private String ParkingHours ;
-    private String SuitNumber ;
-    private String StreetAddress ;
-    private GeoPoint ParkingCoordinates ;
-    private String DateAndTime;
+    private String parkingHours ;
+    private String suitNumber ;
+    private String streetAddress ;
+    private GeoPoint parkingCoordinates ;
+    private String dateAndTime;
 
 
     @Override
@@ -171,6 +172,25 @@ public class DetailParkingFragment extends Fragment {
 
     public void btnUpdateClicked(){
 
+        buildingCode = this.binding.editBuildingCode.getText().toString();
+        parkingHours = this.binding.editParkingHours.getText().toString();
+        suitNumber = this.binding.editSuitNumber.getText().toString();
+        streetAddress = this.binding.editStreetAddress.getText().toString();
+        parkingCoordinates = new GeoPoint(Double.parseDouble(this.binding.editParkingCoordinateLatitude.getText().toString().trim()),
+                Double.parseDouble(this.binding.editParkingCoordinateLongitude.getText().toString().trim()) );
+        dateAndTime = this.binding.editDateAndTime.getText().toString();
+
+
+        Parking parking = new Parking();
+
+
+        parking.setBuilding_code(buildingCode);
+        parking.setParking_hours(Integer.valueOf(parkingHours));
+        parking.setSuit_number(suitNumber);
+        parking.setCoordinate(parkingCoordinates);
+        parking.setStreet_address(streetAddress);
+
+        parkingViewModel.updateUserParking(UserViewModel.getInstance().userLiveData.getValue().getId(), parking);
     }
 
 

@@ -43,7 +43,7 @@ public class UserViewModel extends ViewModel {
         this.userRepository.updateUser(user);
     }
 
-    public void deleteUser(){
-        this.userRepository.deleteUser();
+    public void deleteUser(String id){
+        this.userRepository.deleteUser(id);
     }
 }

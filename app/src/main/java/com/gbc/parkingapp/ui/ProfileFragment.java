@@ -189,7 +189,7 @@ public class ProfileFragment extends Fragment {
     }
 
     public void  btnDeleteClicked(){
-        this.userViewModel.deleteUser();
+        this.userViewModel.deleteUser(userViewModel.userLiveData.getValue().getId());
         moveToHomeScreen();
     }
 

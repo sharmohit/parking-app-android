@@ -25,7 +25,9 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ParkingRepository {
     private final String TAG = this.getClass().getCanonicalName();
@@ -99,5 +101,23 @@ public class ParkingRepository {
         } catch (Exception e) {
             Log.e(TAG, "addUserParking: " + e.getLocalizedMessage());
         }
+    }
+
+    public void updateUserParking (String id, Parking parking) {
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("building_code", parking.getBuilding_code());
+        data.put("parking_hours", parking.getParking_hours());
+        data.put("suit_number", parking.getSuit_number());
+        data.put("street_address", parking.getStreet_address());
+        data.put("date_time", parking.getDate_time());
+        data.put("coordinate", parking.getCoordinate());
+        data.put("car_plate_number", "");
+
+        this.db.collection(COLLECTION_USER)
+                .document(id)
+                .collection(COLLECTION_PARKING)
+                .document(parking.getId())
+                .update(data);
     }
 }

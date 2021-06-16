@@ -12,7 +12,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:layout_marginLeft="20dp"
-        android:text="Building Code : "
         android:textSize="14sp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -20,7 +19,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/label_name"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:hint="Building Code"
@@ -35,7 +34,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_building_code"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:inputType="textCapCharacters" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -44,7 +43,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:text="Parking Hours : "
         android:textSize="14sp"
         app:layout_constraintTop_toBottomOf="@id/label_name"
         app:layout_constraintStart_toStartOf="parent"
@@ -54,7 +52,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/label_parking_hours"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:hint="Parking Hours"
@@ -69,7 +67,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_parking_hours"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:inputType="textCapCharacters" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -78,7 +76,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:text="Suit Number : "
         android:textSize="14sp"
         app:layout_constraintTop_toBottomOf="@id/label_parking_hours"
         app:layout_constraintStart_toStartOf="parent"
@@ -88,7 +85,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/label_suit_number"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:hint="Suit Number"
@@ -103,7 +100,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_suit_number"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:inputType="textCapCharacters" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -112,7 +109,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:text="Street Address : "
         android:textSize="14sp"
         app:layout_constraintTop_toBottomOf="@id/label_suit_number"
         app:layout_constraintStart_toStartOf="parent"
@@ -122,7 +118,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/label_Street_address"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:hint="Street Address"
@@ -137,7 +133,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_street_address"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:inputType="textCapCharacters" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -146,7 +142,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:text="Parking Coordinates : "
         android:textSize="14sp"
         app:layout_constraintTop_toBottomOf="@id/label_Street_address"
         app:layout_constraintStart_toStartOf="parent"
@@ -156,7 +151,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/label_parking_coordinate_latitude"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:hint="Latitude"
@@ -171,14 +166,14 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_parking_coordinate_latitude"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:inputType="textCapCharacters" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/label_parking_coordinate_longitude"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:hint="Longitude"
@@ -193,7 +188,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_parking_coordinate_longitude"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:inputType="textCapCharacters" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -202,7 +197,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:text="Date and Time : "
         android:textSize="14sp"
         app:layout_constraintTop_toBottomOf="@id/label_parking_coordinate_longitude"
         app:layout_constraintStart_toStartOf="parent"
@@ -212,7 +206,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/label_date_and_time"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:hint="Date and Time "
@@ -225,7 +219,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_date_and_time"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:inputType="textCapCharacters" />
     </com.google.android.material.textfield.TextInputLayout>
 
