@@ -120,4 +120,12 @@ public class ParkingRepository {
                 .document(parking.getId())
                 .update(data);
     }
+
+    public void deleteParking (String id) {
+        this.db.collection(COLLECTION_USER)
+                .document(id)
+                .collection(COLLECTION_PARKING)
+                .document(id)
+                .delete();
+    }
 }

@@ -1,5 +1,7 @@
 package com.gbc.parkingapp.ui;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -37,6 +39,7 @@ public class DetailParkingFragment extends Fragment {
     private String streetAddress ;
     private GeoPoint parkingCoordinates ;
     private String dateAndTime;
+
 
 
     @Override
@@ -96,6 +99,13 @@ public class DetailParkingFragment extends Fragment {
             }
         });
 
+        this.binding.btnDeleteCarParking.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                btnDeleteClicked();
+            }
+        });
+
         this.binding.editDateAndTime.setEnabled(false);
 
         binding.editBuildingCode.setOnFocusChangeListener(this::onFocusChange);
@@ -139,15 +149,31 @@ public class DetailParkingFragment extends Fragment {
         boolean isValid = true;
 
         if (this.binding.editBuildingCode.getText().toString().trim().isEmpty()) {
-            this.binding.tvName.setError("Name can't be empty");
+            this.binding.tvName.setError("Building Code can't be empty");
+            isValid = false;
+        }
+        if (this.binding.editBuildingCode.getText().toString().trim().length() != 5
+                || !this.checkAlphanumeric(this.binding.editBuildingCode.getText().toString().trim())){
+            if (this.binding.editBuildingCode.getError() == null) {
+                this.binding.tvName.setError("Building code must have 5 alphanumeric characters");
+            }
             isValid = false;
         }
         if (this.binding.editParkingHours.getText().toString().trim().isEmpty()) {
             this.binding.tvParkingHours.setError("Parking Hours can't be empty");
             isValid = false;
         }
+
         if (this.binding.editSuitNumber.getText().toString().trim().isEmpty()) {
             this.binding.tvSuitNumber.setError("Suit Number can't be empty");
+            isValid = false;
+        }
+        if ((this.binding.editSuitNumber.getText().toString().trim().length() < 2
+                || this.binding.editSuitNumber.getText().length() > 5)
+                || !this.checkAlphanumeric(this.binding.editSuitNumber.getText().toString().trim())) {
+            if (this.binding.editSuitNumber.getError() == null) {
+                this.binding.tvSuitNumber.setError("Suit number must be min 2 and max 5 alphanumeric characters");
+            }
             isValid = false;
         }
         if (this.binding.editStreetAddress.getText().toString().trim().isEmpty()) {
@@ -167,7 +193,24 @@ public class DetailParkingFragment extends Fragment {
             isValid = false;
         }
 
+        if ((this.binding.editCarPlateNumber.getText().toString().trim().length() < 2
+                || this.binding.editCarPlateNumber.getText().length() > 8)
+                || !this.checkAlphanumeric(this.binding.editCarPlateNumber.getText().toString().trim())) {
+            if (this.binding.editCarPlateNumber.getError() == null) {
+                this.binding.tvCarPlateNumber.setError("Car plate number must be min 2 and max 8 alphanumeric characters");
+            }
+            isValid = false;
+        }
+
         return isValid;
+    }
+
+    private boolean checkAlphanumeric (String value) {
+        try {
+            return value.matches("[A-Za-z0-9]+");
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public void btnUpdateClicked(){
@@ -201,4 +244,13 @@ public class DetailParkingFragment extends Fragment {
         NavHostFragment.findNavController(this).navigate(action);
 
     }
+
+    public void btnDeleteClicked(){
+        String parkingId = "";
+
+        this.parkingViewModel.deleteParking(parkingId);
+
+    }
+
+
 }
