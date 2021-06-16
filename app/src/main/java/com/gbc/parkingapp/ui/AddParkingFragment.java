@@ -218,21 +218,24 @@ public class AddParkingFragment extends Fragment implements View.OnFocusChangeLi
 
     private Boolean validateInput() {
         boolean isValid = true;
-        if (this.binding.editBuildingCode.getText().toString().trim().length() != 5) {
+        if (this.binding.editBuildingCode.getText().toString().trim().length() != 5
+        || !this.checkAlphanumeric(this.binding.editBuildingCode.getText().toString().trim())){
             if (this.binding.editBuildingCode.getError() == null) {
                 this.binding.labelBuildingCode.setError("Building code must have 5 alphanumeric characters");
             }
             isValid = false;
         }
         if ((this.binding.editCarPlate.getText().toString().trim().length() < 2
-                || this.binding.editCarPlate.getText().length() > 8)) {
+                || this.binding.editCarPlate.getText().length() > 8)
+                || !this.checkAlphanumeric(this.binding.editCarPlate.getText().toString().trim())) {
             if (this.binding.editCarPlate.getError() == null) {
                 this.binding.labelCarPlate.setError("Car plate number must be min 2 and max 8 alphanumeric characters");
             }
             isValid = false;
         }
         if ((this.binding.editSuitNumber.getText().toString().trim().length() < 2
-                || this.binding.editSuitNumber.getText().length() > 5)) {
+                || this.binding.editSuitNumber.getText().length() > 5)
+                || !this.checkAlphanumeric(this.binding.editSuitNumber.getText().toString().trim())) {
             if (this.binding.editSuitNumber.getError() == null) {
                 this.binding.labelSuitNumber.setError("Suit number must be min 2 and max 5 alphanumeric characters");
             }
@@ -252,6 +255,14 @@ public class AddParkingFragment extends Fragment implements View.OnFocusChangeLi
         }
 
         return isValid;
+    }
+
+    private boolean checkAlphanumeric (String value) {
+        try {
+            return value.matches("[A-Za-z0-9]+");
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     private void clearAllInput() {

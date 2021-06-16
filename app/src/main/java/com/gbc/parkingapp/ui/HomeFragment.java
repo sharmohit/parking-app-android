@@ -64,11 +64,6 @@ public class HomeFragment extends Fragment {
                 binding.progressIndicator.setVisibility(View.INVISIBLE);
             }
         });
-
-        if (this.parkingViewModel.getParkingListLiveData().getValue() == null) {
-            this.parkingViewModel.getUserParkings(UserViewModel.getInstance()
-                    .userLiveData.getValue().getId());
-        }
     }
 
     @Override
@@ -82,8 +77,12 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        if (this.parkingViewModel.getParkingListLiveData().getValue() == null) {
+            this.binding.progressIndicator.setVisibility(View.VISIBLE);
+            this.parkingViewModel.getUserParkings(UserViewModel.getInstance()
+                    .userLiveData.getValue().getId());
+        }
 
-        this.binding.progressIndicator.setVisibility(View.VISIBLE);
         this.binding.rvParkings.setAdapter(this.adapter);
         this.binding.rvParkings.setLayoutManager(new LinearLayoutManager(this.getContext()));
     }

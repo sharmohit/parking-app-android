@@ -182,6 +182,7 @@ public class ProfileFragment extends Fragment {
         SharedPreferences.Editor loginEditor = sharedPref.edit();
         loginEditor.putString(this.getString(R.string.email_key), "");
         loginEditor.putString(this.getString(R.string.password_key), "");
+        this.userViewModel.userLiveData.setValue(null);
         loginEditor.apply();
         moveToHomeScreen();
 
@@ -194,7 +195,6 @@ public class ProfileFragment extends Fragment {
 
     private void moveToHomeScreen(){
         NavController navController = NavHostFragment.findNavController(this);
-        navController.navigateUp();
         navController.navigate(R.id.action_profile_fragment_to_loginFragment);
     }
 

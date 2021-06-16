@@ -179,9 +179,6 @@ public class SignUpFragment extends Fragment {
 
     private void showHomeScreen() {
         NavController navController = NavHostFragment.findNavController(this);
-        navController.navigateUp();
-        navController.navigate(R.id.action_loginFragment_to_home_fragment);
-
+        navController.navigate(R.id.action_signUpFragment_to_home_fragment);
     }
-
 }

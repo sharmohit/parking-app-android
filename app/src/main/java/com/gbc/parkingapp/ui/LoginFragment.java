@@ -63,8 +63,6 @@ public class LoginFragment extends Fragment implements View.OnFocusChangeListene
                     } else {
                         showSnackBar("User not found!");
                     }
-                } else {
-                    showSnackBar("Something went wrong");
                 }
                 binding.progressIndicator.setVisibility(View.INVISIBLE);
             }
@@ -141,7 +139,6 @@ public class LoginFragment extends Fragment implements View.OnFocusChangeListene
 
     private void showHomeScreen() {
         NavController navController = NavHostFragment.findNavController(this);
-        navController.navigateUp();
         navController.navigate(R.id.action_loginFragment_to_home_fragment);
     }
 

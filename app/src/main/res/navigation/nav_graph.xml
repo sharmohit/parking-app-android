@@ -55,13 +55,10 @@
         tools:layout="@layout/fragment_profile" >
         <action
             android:id="@+id/action_profile_fragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
-        <action
-            android:id="@+id/action_profile_fragment_to_loginFragment2"
             app:destination="@id/loginFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
-            app:popUpTo="@id/loginFragment"
+            app:popUpTo="@id/home_fragment"
             app:popUpToInclusive="true"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
@@ -74,7 +71,7 @@
         <action
             android:id="@+id/action_signUpFragment_to_home_fragment"
             app:destination="@id/home_fragment"
-            app:popUpTo="@id/home_fragment"
+            app:popUpTo="@id/loginFragment"
             app:popUpToInclusive="true" />
     </fragment>
     <fragment
