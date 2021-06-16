@@ -172,12 +172,4 @@ public class ParkingRepository {
             Log.e(TAG, "updateUserParking: " + e.getLocalizedMessage());
         }
     }
-
-    public void deleteParking (String id) {
-        this.db.collection(COLLECTION_USER)
-                .document(id)
-                .collection(COLLECTION_PARKING)
-                .document(id)
-                .delete();
-    }
 }

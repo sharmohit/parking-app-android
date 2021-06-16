@@ -68,7 +68,7 @@
             android:id="@+id/edit_parking_hours"
             android:layout_width="match_parent"
             android:layout_height="55dp"
-            android:inputType="textCapCharacters" />
+            android:inputType="numberSigned" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
@@ -134,7 +134,7 @@
             android:id="@+id/edit_street_address"
             android:layout_width="match_parent"
             android:layout_height="55dp"
-            android:inputType="textCapCharacters" />
+            android:inputType="text" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
@@ -167,7 +167,7 @@
             android:id="@+id/edit_parking_coordinate_latitude"
             android:layout_width="match_parent"
             android:layout_height="55dp"
-            android:inputType="textCapCharacters" />
+            android:inputType="text" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -189,7 +189,7 @@
             android:id="@+id/edit_parking_coordinate_longitude"
             android:layout_width="match_parent"
             android:layout_height="55dp"
-            android:inputType="textCapCharacters" />
+            android:inputType="text" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView

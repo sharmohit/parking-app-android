@@ -87,5 +87,14 @@
             app:argType="com.gbc.parkingapp.model.Parking"
             app:nullable="true"
             android:defaultValue="@null" />
+        <action
+            android:id="@+id/action_detailParkingFragment_to_add_parking_fragment"
+            app:destination="@id/add_parking_fragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popUpTo="@id/add_parking_fragment"
+            app:popUpToInclusive="true"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
 </navigation>
