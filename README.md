@@ -30,6 +30,46 @@ This facility will allow the user to view the list of all the parking they have 
 User must be allowed to edit the parking information except datetime of parking. Also, the app must allow user to delete any parking from the list.
 ##
 &nbsp;
+## Screenshots
+<table style="width:100%">
+  <tr>
+    <th>Login UI</th>
+    <th>Create Account UI</th>
+    <th>Home View UI</th>
+  </tr>
+  <tr>
+    <td><img src = "https://github.com/sharmohit/parking-app-android/blob/master/Images/01_login.png" alt="Login UI" width="205" height="443"/></td>
+    <td><img src = "https://github.com/sharmohit/parking-app-android/blob/master/Images/02_sign_up.png" alt="Create Account UI" width="205" height="443"/></td>
+    <td><img src = "https://github.com/sharmohit/parking-app-android/blob/master/Images/03_view_parking_01.png" alt="Home View UI" width="205" height="443"/></td>
+  </tr>
+</table>
+<table style="width:100%">
+  <tr>
+    <th>Home View UI</th>
+    <th>Add Parking UI</th>
+    <th>Add Parking UI</th>
+  </tr>
+  <tr>
+    <td><img src = "https://github.com/sharmohit/parking-app-android/blob/master/Images/04_view_parking_02.png" alt="Home View UI" width="205" height="443"/</td>
+    <td><img src = "https://github.com/sharmohit/parking-app-android/blob/master/Images/05_add_parking_01.png" alt="Add Parking UI" width="205" height="443"/></td>
+    <td><img src = "https://github.com/sharmohit/parking-app-android/blob/master/Images/06_add_parking_02.png" alt="Add Parking UI" width="205" height="443"/></td>
+  </tr>
+</table>
+<table style="width:100%">
+  <tr>
+    <th>Parking Detail UI</th>
+    <th>Update Profile UI</th>
+    <th>Map UI</th>
+  </tr>
+  <tr>
+    <td><img src = "https://github.com/sharmohit/parking-app-android/blob/master/Images/07_parking_detail.png" alt="Parking Detail UI" width="205" height="443"/</td>
+    <td><img src = "https://github.com/sharmohit/parking-app-android/blob/master/Images/08_user_profile.png" alt="" width="205" height="443"/></td>
+    <td><img src = "https://github.com/sharmohit/parking-app-android/blob/master/Images/09_map.png" alt="Map UI" width="205" height="443"/></td>
+  </tr>
+</table>
+
+##
+&nbsp;
 ## Task Lists
 - [x] 1. Create Sign-In Screen @MohitSharma(101342267)
   - [x] Design sign-in layout
