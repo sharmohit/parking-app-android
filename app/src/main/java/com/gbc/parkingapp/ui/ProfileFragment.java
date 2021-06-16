@@ -115,7 +115,6 @@ public class ProfileFragment extends Fragment {
                             public void onClick(DialogInterface dialog, int which) {
 
                                 btnDeleteClicked();
-                                moveToLoginScreen();
 
                             }
                         })
