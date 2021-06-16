@@ -40,7 +40,7 @@ public class UserViewModel extends ViewModel {
         this.userRepository.signUpUser(user,this.userLiveData);
     }
     public void updateUser(User user){
-        this.userRepository.updateUser(user);
+        this.userRepository.updateUser(user, this.userLiveData);
     }
 
     public void deleteUser(String id){
