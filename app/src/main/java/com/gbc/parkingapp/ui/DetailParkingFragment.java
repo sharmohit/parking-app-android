@@ -36,6 +36,7 @@ public class DetailParkingFragment extends Fragment {
     private ParkingViewModel parkingViewModel;
     private Parking parking;
 
+    private String carPlateNumber;
     private String buildingCode ;
     private String parkingHours ;
     private String suitNumber ;
@@ -97,6 +98,7 @@ public class DetailParkingFragment extends Fragment {
         });
 
         if (this.parking != null) {
+            this.binding.editCarPlateNumber.setText(this.parking.getCar_plate_number());
             this.binding.editBuildingCode.setText(this.parking.getBuilding_code());
             this.binding.editParkingHours.setText(String.valueOf(this.parking.getParking_hours()));
             this.binding.editSuitNumber.setText(this.parking.getSuit_number());
@@ -151,6 +153,7 @@ public class DetailParkingFragment extends Fragment {
 
         this.binding.editDateAndTime.setEnabled(false);
 
+        binding.editCarPlateNumber.setOnFocusChangeListener(this::onFocusChange);
         binding.editBuildingCode.setOnFocusChangeListener(this::onFocusChange);
         binding.editParkingHours.setOnFocusChangeListener(this::onFocusChange);
         binding.editSuitNumber.setOnFocusChangeListener(this::onFocusChange);
@@ -260,6 +263,7 @@ public class DetailParkingFragment extends Fragment {
 
         buildingCode = this.binding.editBuildingCode.getText().toString();
         parkingHours = this.binding.editParkingHours.getText().toString();
+        carPlateNumber = this.binding.editCarPlateNumber.getText().toString();
         suitNumber = this.binding.editSuitNumber.getText().toString();
         streetAddress = this.binding.editStreetAddress.getText().toString();
         parkingCoordinates = new GeoPoint(Double.parseDouble(this.binding.editParkingCoordinateLatitude.getText().toString().trim()),
@@ -267,16 +271,16 @@ public class DetailParkingFragment extends Fragment {
         dateAndTime = this.binding.editDateAndTime.getText().toString();
 
 
-        Parking parking = new Parking();
 
 
-        parking.setBuilding_code(buildingCode);
-        parking.setParking_hours(Integer.valueOf(parkingHours));
-        parking.setSuit_number(suitNumber);
-        parking.setCoordinate(parkingCoordinates);
-        parking.setStreet_address(streetAddress);
+        this.parking.setCar_plate_number(carPlateNumber);
+        this.parking.setBuilding_code(buildingCode);
+        this.parking.setParking_hours(Integer.valueOf(parkingHours));
+        this.parking.setSuit_number(suitNumber);
+        this.parking.setCoordinate(parkingCoordinates);
+        this.parking.setStreet_address(streetAddress);
 
-        parkingViewModel.updateUserParking(UserViewModel.getInstance().userLiveData.getValue().getId(), parking);
+        parkingViewModel.updateUserParking(UserViewModel.getInstance().userLiveData.getValue().getId(), this.parking);
     }
 
 
