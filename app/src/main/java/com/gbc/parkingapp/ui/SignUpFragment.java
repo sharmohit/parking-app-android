@@ -156,10 +156,31 @@ public class SignUpFragment extends Fragment {
             this.binding.editEmail.setError("Incorrect email");
             isValidInput = false;
         }
+        if (name.isEmpty()) {
+            this.binding.editName.setError("Name is required");
+            isValidInput = false;
+        }
         if (password.isEmpty()) {
             this.binding.editPassword.setError("Password is required");
             isValidInput = false;
         }
+        if (phone.isEmpty()) {
+            this.binding.editPhone.setError("Phone is required");
+            isValidInput = false;
+        }
+        if (car_plate_number.isEmpty()) {
+            this.binding.editCarPlateNumber.setError("Car Plate Number is required");
+            isValidInput = false;
+        }
+        if (car_plate_number.length()<2) {
+            this.binding.editCarPlateNumber.setError("Minimum 2 alphanumerics characters allowed");
+            isValidInput = false;
+        }
+        if (car_plate_number.length() > 8) {
+            this.binding.editCarPlateNumber.setError("Maximum 8 alphanumerics characters allowed");
+            isValidInput = false;
+        }
+
         if (!isValidInput) {
             return;
         }

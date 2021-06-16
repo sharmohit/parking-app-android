@@ -32,7 +32,7 @@ public class UserRepository {
     private final String TAG = this.getClass().getCanonicalName();
     private final String COLLECTION_NAME = "users";
     private FirebaseFirestore db;
-    private String id = "";
+   // private String id = "";
 
     public UserRepository() {
         this.db = FirebaseFirestore.getInstance();
@@ -82,7 +82,7 @@ public class UserRepository {
                             // Set User Id in User singleton
 
                             user.setId(documentReference.getId());
-                            id = documentReference.getId();
+                           // id = documentReference.getId();
 
                             userLiveData.postValue(user);
                             Log.d(TAG, "Fetching User  : " + userLiveData.getValue().toString());
@@ -111,11 +111,11 @@ public class UserRepository {
         data.put("car_plate_number",  user.getCar_plate_number());
 
         this.db.collection(COLLECTION_NAME)
-                .document(id)
+                .document(user.getId())
                 .update(data);
     }
 
-    public void deleteUser() {
+    public void deleteUser(String id) {
 
         db.collection(COLLECTION_NAME).document(id)
                 .delete()
@@ -132,5 +132,4 @@ public class UserRepository {
                     }
                 });
     }
-
 }
