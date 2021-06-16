@@ -71,6 +71,8 @@ public class ParkingRepository {
 
         } catch (Exception e) {
             Log.e(TAG, "getUserParkings: " + e.getLocalizedMessage());
+            List<Parking> parkingList = new ArrayList<>();
+            parkingListLiveData.postValue(parkingList);
         }
     }
 
