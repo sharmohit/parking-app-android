@@ -19,7 +19,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/label_name"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="55dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:hint="Building Code"
@@ -34,7 +34,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_building_code"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="55dp"
             android:inputType="textCapCharacters" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -52,7 +52,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/label_parking_hours"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="55dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:hint="Parking Hours"
@@ -67,7 +67,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_parking_hours"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="55dp"
             android:inputType="textCapCharacters" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -85,7 +85,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/label_suit_number"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="55dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:hint="Suit Number"
@@ -100,7 +100,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_suit_number"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="55dp"
             android:inputType="textCapCharacters" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -118,7 +118,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/label_Street_address"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="55dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:hint="Street Address"
@@ -133,7 +133,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_street_address"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="55dp"
             android:inputType="textCapCharacters" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -151,7 +151,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/label_parking_coordinate_latitude"
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="55dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:hint="Latitude"
@@ -166,14 +166,14 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_parking_coordinate_latitude"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="55dp"
             android:inputType="textCapCharacters" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/label_parking_coordinate_longitude"
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="55dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:hint="Longitude"
@@ -188,7 +188,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_parking_coordinate_longitude"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="55dp"
             android:inputType="textCapCharacters" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -206,7 +206,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/label_date_and_time"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="55dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:hint="Date and Time "
@@ -219,22 +219,55 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_date_and_time"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="55dp"
+            android:inputType="textCapCharacters" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/tv_car_plate_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@id/label_date_and_time"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/label_car_plate_number"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:hint="Car Plate Number"
+        app:errorEnabled="true"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:endIconMode="custom"
+        app:endIconDrawable="@drawable/ic_baseline_edit_24"
+        app:layout_constraintTop_toBottomOf="@+id/tv_car_plate_number"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_car_plate_number"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
             android:inputType="textCapCharacters" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/btn_get_direction"
+        android:id="@+id/btn_delete_car_parking"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAllCaps="false"
-        android:text=" Get Directions"
+        android:text="Delete"
         android:layout_marginTop="20dp"
-        app:layout_constraintTop_toBottomOf="@id/label_date_and_time"
+        app:layout_constraintTop_toBottomOf="@id/label_car_plate_number"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintHorizontal_bias="0.75"
+        app:layout_constraintStart_toEndOf="@+id/btn_update"
+        app:layout_constraintHorizontal_bias="0.8"
         />
+
 
     <Button
         android:id="@+id/btn_update"
@@ -243,10 +276,23 @@
         android:textAllCaps="false"
         android:text="Update"
         android:layout_marginTop="20dp"
-        app:layout_constraintTop_toBottomOf="@id/label_date_and_time"
+        app:layout_constraintTop_toBottomOf="@id/label_car_plate_number"
         app:layout_constraintEnd_toStartOf="@+id/btn_get_direction"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintHorizontal_bias="0.55"
+        app:layout_constraintHorizontal_bias="0.95"
+        />
+
+    <Button
+        android:id="@+id/btn_get_direction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAllCaps="false"
+        android:text="Get Direction"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@id/btn_update"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         />
 
 

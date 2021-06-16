@@ -64,4 +64,8 @@ public class ParkingViewModel extends ViewModel {
     public MutableLiveData<List<Parking>> getParkingListLiveData() {
         return parkingListLiveData;
     }
+
+    public void deleteParking (String id){
+        this.parkingRepository.deleteParking(id);
+    }
 }

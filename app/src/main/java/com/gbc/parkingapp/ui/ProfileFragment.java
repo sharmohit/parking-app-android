@@ -1,6 +1,8 @@
 package com.gbc.parkingapp.ui;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -11,6 +13,7 @@ import androidx.lifecycle.Observer;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
+import android.util.Patterns;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -103,6 +106,27 @@ public class ProfileFragment extends Fragment {
         this.binding.btnDelete.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+
+
+             AlertDialog.Builder alert =   new AlertDialog.Builder(getContext());
+                        alert.setTitle("Delete entry")
+                        .setMessage("Are you sure you want to delete this entry?")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                userViewModel.deleteUser(userViewModel.userLiveData.getValue().getId());
+                                moveToHomeScreen();
+
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        })
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+
                     btnDeleteClicked();
             }
         });
@@ -150,7 +174,11 @@ public class ProfileFragment extends Fragment {
         if (this.binding.editEmail.getText().toString().trim().isEmpty()) {
             this.binding.labelEmail.setError("Email can't be empty");
             isValid = false;
+        } else if (!this.isValidEmail(email)) {
+            this.binding.editEmail.setError("Incorrect email");
+            isValid = false;
         }
+
         if (this.binding.editPassword.getText().toString().trim().isEmpty()) {
             this.binding.labelPassword.setError("Password can't be empty");
             isValid = false;
@@ -225,4 +253,7 @@ public class ProfileFragment extends Fragment {
         userViewModel.userLiveData.getValue().setCar_plate_number(car_plate_number);
     }
 
+    private boolean isValidEmail(String email) {
+        return Patterns.EMAIL_ADDRESS.matcher(email).matches();
+    }
 }
