@@ -25,6 +25,8 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,7 +34,6 @@ public class UserRepository {
     private final String TAG = this.getClass().getCanonicalName();
     private final String COLLECTION_NAME = "users";
     private FirebaseFirestore db;
-   // private String id = "";
 
     public UserRepository() {
         this.db = FirebaseFirestore.getInstance();
@@ -101,7 +102,7 @@ public class UserRepository {
         }
     }
 
-    public void updateUser(User user) {
+    public void updateUser(User user, MutableLiveData<User> userLiveData) {
 
         Map<String, Object> data = new HashMap<>();
         data.put("name", user.getName());
@@ -110,9 +111,25 @@ public class UserRepository {
         data.put("phone", user.getPhone());
         data.put("car_plate_number",  user.getCar_plate_number());
 
-        this.db.collection(COLLECTION_NAME)
-                .document(user.getId())
-                .update(data);
+        try {
+            this.db.collection(COLLECTION_NAME)
+                    .document(user.getId())
+                    .update(data)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
+                            userLiveData.postValue(user);
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            userLiveData.postValue(new User());
+                        }
+                    });
+        } catch (Exception e) {
+            Log.e(TAG, "updateUser: " + e.getLocalizedMessage());
+        }
     }
 
     public void deleteUser(String id) {

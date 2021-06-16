@@ -9,23 +9,28 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
 import android.util.Patterns;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.gbc.parkingapp.R;
 import com.gbc.parkingapp.databinding.FragmentProfileBinding;
+import com.gbc.parkingapp.model.Parking;
 import com.gbc.parkingapp.model.User;
+import com.gbc.parkingapp.viewmodel.ParkingViewModel;
 import com.gbc.parkingapp.viewmodel.UserViewModel;
+import com.google.api.LogDescriptor;
 
 public class ProfileFragment extends Fragment {
     private final String TAG = this.getClass().getCanonicalName();
     private FragmentProfileBinding binding;
-
+    private ParkingViewModel parkingViewModel;
     private UserViewModel userViewModel;
     private User user;
 
@@ -35,12 +40,24 @@ public class ProfileFragment extends Fragment {
     private String phone ;
     private String car_plate_number ;
 
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.userViewModel = UserViewModel.getInstance();
+        this.parkingViewModel = ParkingViewModel.getInstance();
+        this.user = userViewModel.userLiveData.getValue();
+        this.userViewModel.userLiveData.observe(this, new Observer<User>() {
+            @Override
+            public void onChanged(User user) {
+                if (user != null) {
+                    if (user.getId().isEmpty()) {
+                        Log.d(TAG, "onChanged: Unable to update user");
+                    } else {
+                        Log.d(TAG, "onChanged: User updated successfully " + user.toString());
+                    }
+                }
+            }
+        });
 
     }
 
@@ -56,11 +73,11 @@ public class ProfileFragment extends Fragment {
         phone = this.userViewModel.userLiveData.getValue().getPhone();
         car_plate_number = this.userViewModel.userLiveData.getValue().getCar_plate_number();
 
-        this.binding.editName.setText(name);
-        this.binding.editEmail.setText(email);
-        this.binding.editPassword.setText(password);
-        this.binding.editPhone.setText(phone);
-        this.binding.editCarPlateNumber.setText(car_plate_number);
+        this.binding.editName.setText(this.user.getName());
+        this.binding.editEmail.setText(this.user.getEmail());
+        this.binding.editPassword.setText(this.user.getPassword());
+        this.binding.editPhone.setText(this.user.getPhone());
+        this.binding.editCarPlateNumber.setText(this.user.getCar_plate_number());
 
         return this.binding.getRoot();
 
@@ -192,16 +209,12 @@ public class ProfileFragment extends Fragment {
         storeValuesInUser();
 
         // Store values in FireStore database
-        User user = new User();
-
-        user.setName(name);
-        user.setEmail(email);
-        user.setPassword(password);
-        user.setPhone(phone);
-        user.setCar_plate_number(car_plate_number);
-
-        this.userViewModel.updateUser(user);
-
+        this.user.setName(name);
+        this.user.setEmail(email);
+        this.user.setPassword(password);
+        this.user.setPhone(phone);
+        this.user.setCar_plate_number(car_plate_number);
+        this.userViewModel.updateUser(this.user);
     }
     public void btnLogoutClicked(){
 
@@ -212,15 +225,22 @@ public class ProfileFragment extends Fragment {
         loginEditor.putString(this.getString(R.string.password_key), "");
         this.userViewModel.userLiveData.setValue(null);
         loginEditor.apply();
-        moveToHomeScreen();
-
+        moveToLoginScreen();
     }
 
-    public void  btnDeleteClicked(){
+    public void btnDeleteClicked(){
+        if (!this.parkingViewModel.getParkingListLiveData().getValue().isEmpty())
+        {
+            for (Parking parking : this.parkingViewModel.getParkingListLiveData().getValue()) {
+                this.parkingViewModel.deleteUserParking(this.user.getId(), parking.getId());
+            }
+        }
 
+            this.userViewModel.deleteUser(this.user.getId());
+        btnLogoutClicked();
     }
 
-    private void moveToHomeScreen(){
+    private void moveToLoginScreen(){
         NavController navController = NavHostFragment.findNavController(this);
         navController.navigate(R.id.action_profile_fragment_to_loginFragment);
     }

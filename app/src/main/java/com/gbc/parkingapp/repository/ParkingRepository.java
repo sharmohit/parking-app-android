@@ -24,6 +24,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -102,8 +104,40 @@ public class ParkingRepository {
             Log.e(TAG, "addUserParking: " + e.getLocalizedMessage());
         }
     }
+    
+    public void deleteUserParkingById(String userId, String parkingId, MutableLiveData<List<Parking>> parkingListLiveData ) {
+        
+        try {
+            this.db.collection(COLLECTION_USER).document(userId)
+                    .collection(COLLECTION_PARKING)
+                    .document(parkingId)
+                    .delete()
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
+                            Log.d(TAG, "onSuccess: Delete Parking");
+                            for (int i = 0; i < parkingListLiveData.getValue().size(); i++)
+                            {
+                                if (parkingListLiveData.getValue().get(i).getId().contentEquals(parkingId))
+                                {
+                                    Log.d(TAG, "onEvent: Removed Existing Parking");
+                                    parkingListLiveData.getValue().remove(i);
+                                }
+                            }
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.e(TAG, "onFailure: Unable to delete user parkings" + e.getLocalizedMessage());
+                        }
+                    });
+        } catch (Exception e) {
+            Log.e(TAG, "deleteUserParkingById: " + e.getLocalizedMessage());
+        }
+    }
 
-    public void updateUserParking (String id, Parking parking) {
+    public void updateUserParking(String userId, Parking parking, MutableLiveData<Parking> parkingLiveData) {
 
         Map<String, Object> data = new HashMap<>();
         data.put("building_code", parking.getBuilding_code());
@@ -112,13 +146,31 @@ public class ParkingRepository {
         data.put("street_address", parking.getStreet_address());
         data.put("date_time", parking.getDate_time());
         data.put("coordinate", parking.getCoordinate());
-        data.put("car_plate_number", "");
+        data.put("car_plate_number", parking.getCar_plate_number());
 
-        this.db.collection(COLLECTION_USER)
-                .document(id)
-                .collection(COLLECTION_PARKING)
-                .document(parking.getId())
-                .update(data);
+        try {
+            this.db.collection(COLLECTION_USER)
+                    .document(userId)
+                    .collection(COLLECTION_PARKING)
+                    .document(parking.getId())
+                    .update(data)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
+                            Log.d(TAG, "onSuccess: Updated parking successfully");
+                            parkingLiveData.postValue(parking);
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.e(TAG, "onFailure: Unable to update parking" + e);
+                            parkingLiveData.postValue(new Parking());
+                        }
+                    });
+        } catch (Exception e) {
+            Log.e(TAG, "updateUserParking: " + e.getLocalizedMessage());
+        }
     }
 
     public void deleteParking (String id) {

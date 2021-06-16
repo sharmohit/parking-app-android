@@ -2,11 +2,13 @@ package com.gbc.parkingapp.ui;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.navigation.fragment.NavHostFragment;
 
 import android.util.Log;
@@ -66,9 +68,32 @@ public class DetailParkingFragment extends Fragment {
         return  this.binding.getRoot();
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        this.parkingViewModel.getNewParkingLiveData().observe(getViewLifecycleOwner(), new Observer<Parking>() {
+            @Override
+            public void onChanged(Parking parking) {
+                if (parking != null) {
+                    if (parking.getId().isEmpty()) {
+                        Log.d(TAG, "onChanged: Unable to update parking");
+                    } else {
+                        Log.d(TAG, "onChanged: Parking updated successfully " + parking.toString());
+                        for (int i = 0; i < parkingViewModel.getParkingListLiveData().getValue().size(); i++)
+                        {
+                            if (parkingViewModel.getParkingListLiveData().getValue().get(i).getId().contentEquals(parking.getId()))
+                            {
+                                Log.d(TAG, "onEvent: Updated Existing Parking");
+                                parkingViewModel.getParkingListLiveData().getValue().set(i, parking);
+                            }
+                        }
+
+                    }
+                }
+            }
+        });
 
         if (this.parking != null) {
             this.binding.editBuildingCode.setText(this.parking.getBuilding_code());

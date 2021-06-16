@@ -49,8 +49,12 @@ public class ParkingViewModel extends ViewModel {
         this.parkingRepository.addUserParking(userId, parking, this.newParkingLiveData);
     }
 
-    public void updateUserParking(String id, Parking parking){
-        this.parkingRepository.updateUserParking ( id,parking);
+    public void updateUserParking(String userId, Parking parking){
+        this.parkingRepository.updateUserParking(userId,parking, this.newParkingLiveData);
+    }
+
+    public void deleteUserParking(String userId, String parkingId) {
+        this.parkingRepository.deleteUserParkingById(userId, parkingId, this.parkingListLiveData);
     }
 
     public MutableLiveData<Parking> getNewParkingLiveData() {
