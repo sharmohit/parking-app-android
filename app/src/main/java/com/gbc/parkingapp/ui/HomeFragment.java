@@ -50,16 +50,18 @@ public class HomeFragment extends Fragment {
         this.parkingViewModel.getParkingListLiveData().observe(this, new Observer<List<Parking>>() {
             @Override
             public void onChanged(List<Parking> parkings) {
-                parkingArrayList.clear();
-                parkingArrayList.addAll(parkings);
-                adapter.notifyDataSetChanged();
+                if (parkings != null) {
+                    parkingArrayList.clear();
+                    parkingArrayList.addAll(parkings);
+                    adapter.notifyDataSetChanged();
 
-                if (parkings.isEmpty()) {
-                    binding.tvNoParking.setVisibility(View.VISIBLE);
-                    binding.tvAddParking.setVisibility(View.VISIBLE);
-                } else {
-                    binding.tvNoParking.setVisibility(View.INVISIBLE);
-                    binding.tvAddParking.setVisibility(View.INVISIBLE);
+                    if (parkings.isEmpty()) {
+                        binding.tvNoParking.setVisibility(View.VISIBLE);
+                        binding.tvAddParking.setVisibility(View.VISIBLE);
+                    } else {
+                        binding.tvNoParking.setVisibility(View.INVISIBLE);
+                        binding.tvAddParking.setVisibility(View.INVISIBLE);
+                    }
                 }
                 binding.progressIndicator.setVisibility(View.INVISIBLE);
             }
