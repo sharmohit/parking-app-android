@@ -114,8 +114,8 @@ public class ProfileFragment extends Fragment {
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
 
-                                userViewModel.deleteUser(userViewModel.userLiveData.getValue().getId());
-                                moveToHomeScreen();
+                                btnDeleteClicked();
+                                moveToLoginScreen();
 
                             }
                         })
@@ -126,8 +126,6 @@ public class ProfileFragment extends Fragment {
                         })
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .show();
-
-                    btnDeleteClicked();
             }
         });
 

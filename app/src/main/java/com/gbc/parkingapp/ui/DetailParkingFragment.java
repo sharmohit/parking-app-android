@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
+import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
 import android.util.Log;
@@ -127,7 +128,24 @@ public class DetailParkingFragment extends Fragment {
         this.binding.btnDeleteCarParking.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                btnDeleteClicked();
+                AlertDialog.Builder alert =   new AlertDialog.Builder(getContext());
+                alert.setTitle("Delete entry")
+                        .setMessage("Are you sure you want to delete this entry?")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                deleteParking();
+
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        })
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+
             }
         });
 
@@ -270,12 +288,9 @@ public class DetailParkingFragment extends Fragment {
 
     }
 
-    public void btnDeleteClicked(){
-        String parkingId = "";
-
-        this.parkingViewModel.deleteParking(parkingId);
-
+    private void deleteParking() {
+        this.parkingViewModel.deleteUserParking(UserViewModel.getInstance().userLiveData.getValue().getId(), this.parking.getId());
+        NavController navController = NavHostFragment.findNavController(this);
+        navController.navigate(R.id.action_detailParkingFragment_to_add_parking_fragment);
     }
-
-
 }

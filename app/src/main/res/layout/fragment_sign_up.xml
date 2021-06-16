@@ -14,8 +14,9 @@
         android:layout_marginTop="16dp"
         android:textAlignment="center"
         android:text="Become a Member"
-        android:textSize="18sp"
+        android:textSize="28sp"
         android:textStyle="bold"
+        android:textColor="@color/blue_dark"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -40,7 +41,7 @@
             android:id="@+id/edit_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textCapCharacters"
+            android:inputType="textPersonName"
             />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -61,6 +62,7 @@
             android:id="@+id/edit_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
             />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -124,6 +126,7 @@
             android:id="@+id/edit_car_plate_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="textCapCharacters"
             />
     </com.google.android.material.textfield.TextInputLayout>
 
