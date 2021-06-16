@@ -97,6 +97,8 @@ public class AddParkingFragment extends Fragment implements View.OnFocusChangeLi
             }
         });
 
+        this.binding.editCarPlate.setText(this.userViewModel.userLiveData.getValue().getCar_plate_number());
+
         this.binding.editBuildingCode.setOnFocusChangeListener(this::onFocusChange);
         this.binding.editCarPlate.setOnFocusChangeListener(this::onFocusChange);
         this.binding.editSuitNumber.setOnFocusChangeListener(this::onFocusChange);
