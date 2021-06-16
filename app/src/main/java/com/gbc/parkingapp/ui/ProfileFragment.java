@@ -172,9 +172,6 @@ public class ProfileFragment extends Fragment {
         if (this.binding.editEmail.getText().toString().trim().isEmpty()) {
             this.binding.labelEmail.setError("Email can't be empty");
             isValid = false;
-        } else if (!this.isValidEmail(email)) {
-            this.binding.editEmail.setError("Incorrect email");
-            isValid = false;
         }
 
         if (this.binding.editPassword.getText().toString().trim().isEmpty()) {
